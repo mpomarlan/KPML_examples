@@ -1,3 +1,5 @@
+(in-package :kpml-ex)
+
 ;(EXAMPLE
 ;    :NAME   CONC-ALSO
 ;    :GENERATEDFORM   "Also, we will go to the lake."

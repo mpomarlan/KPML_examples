@@ -1,3 +1,5 @@
+(in-package :kpml-ex)
+
 ;(EXAMPLE
 ;    :NAME   CONC-CONJUNCTIVE
 ;    :GENERATEDFORM   "The weather is bad."
