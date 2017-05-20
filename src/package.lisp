@@ -34,6 +34,8 @@
   (:nicknames :kpml-ex)
   (:export #:example
            #:kpml-example
+           #:run-example
+           #:init-connection
            #:name
            #:set-name
            #:generatedform
