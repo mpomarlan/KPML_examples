@@ -42,3 +42,30 @@
          (var-name (when name-pos
                      (nth (+ name-pos 1) args))))
     `(defparameter ,var-name (apply #'make-instance ',args))))
+
+(defparameter kpml nil)
+
+(defun init-connection (port &optional (host nil host-p))
+  (if (host-p)
+    (setf kpml (socket:socket-connect port host))
+    (setf kpml (socket:socket-connect port))))
+
+(defun send-line (stream line)
+	   (princ line stream)
+	   (princ (code-char 13) stream)
+	   (princ (code-char 10) stream))
+
+(defun run-example (example)
+  (let* ((logicalform (format nil "~a" (logicalform example)))
+         (targetform (format nil "~a" (targetform example)))
+         (generatedform (format nil "~a" (generatedform example)))
+         (dummy (when kpml (send-line kpml logicalform)))
+         (act-genform (when kpml (read-line kpml nil nil))))
+    (declare (ignore kpml))
+    (values act-genform generatedform targetform)))
+
+;;(defparameter kpml (socket:socket-connect 4014))
+
+;;(read-line kpml nil nil)
+
+
