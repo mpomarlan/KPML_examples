@@ -42,4 +42,11 @@
            #:logicalform
            #:targetform
            #:conc-also
-           #:conc-conjunctive))
+           #:conc-conjunctive
+           #:conc-coord1
+           #:conc-coord2
+           #:conc-final
+           #:conc-test1
+           #:conc-test2
+           #:conc-thematic
+           #:conc-then))

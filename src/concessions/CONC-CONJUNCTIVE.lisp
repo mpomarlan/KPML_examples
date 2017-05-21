@@ -18,7 +18,7 @@
     :GENERATEDFORM   "The weather is bad ."
     :TARGETFORM   "The weather is bad."
     :LOGICALFORM   
-      (PA / |gum#PropertyAscription| 
+(PA / |gum#PropertyAscription| 
               :LEX BE 
               :TENSE PRESENT 
               :|gum#domain| 

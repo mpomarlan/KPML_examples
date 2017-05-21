@@ -17,5 +17,12 @@
          (:module "concessions" :depends-on ("package" "utils")
           :components
             ((:file "CONC-ALSO")
-             (:file "CONC-CONJUNCTIVE")))
+             (:file "CONC-CONJUNCTIVE")
+             (:file "CONC-COORD1")
+             (:file "CONC-COORD2")
+             (:file "CONC-FINAL")
+             (:file "CONC-TEST1")
+             (:file "CONC-TEST2")
+             (:file "CONC-THEMATIC")
+             (:file "CONC-THEN")))
          ))))

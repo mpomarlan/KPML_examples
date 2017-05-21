@@ -1,11 +1,12 @@
 (in-package :kpml-ex)
 
 ;(EXAMPLE
-;    :NAME   CONC-ALSO
-;    :GENERATEDFORM   "Also, we will go to the lake."
-;    :TARGETFORM   "Also, we will go to the lake."
+;    :NAME   CONC-THEMATIC
+;    :GENERATEDFORM   "Still, we will go to the lake."
+;    :TARGETFORM   "STILL, we will go to the lake."
 ;    :LOGICALFORM   
-;(GO / NONDIRECTED-ACTION :LEX GO-VERB :CONJUNCTIVE ALSO :ACTOR
+;(GO / NONDIRECTED-ACTION :LEX GO-VERB :CONJUNCTIVE STILL
+;    :TEXTUAL-THEME-Q CONTEXT :ACTOR
 ;    (SPEAKER / PERSON :NUMBER PLURAL)
 ;    :DESTINATION
 ;    (LA / OBJECT :LEX LAKE :DETERMINER THE)
@@ -14,15 +15,15 @@
 ;)
 
 (EXAMPLE
-    :NAME   CONC-ALSO
+    :NAME   CONC-THEMATIC
     :SET-NAME   CONCESSIONS
-    :GENERATEDFORM   "Also,we will go  [NIL] the lake ."
-    :TARGETFORM   "Also, we will go to the lake."
+    :GENERATEDFORM   "Still,we will go  [NIL] the lake."
+    :TARGETFORM   "Still, we will go to the lake."
     :LOGICALFORM
       (GO / |space#NonAffectingDirectedMotion|
               :LEX GO-VERB
               :TENSE FUTURE
-              :CONJUNCTIVE ALSO
+              :CONJUNCTIVE STILL
               :|gum#actor|
                 (sp / |gum#Person|
                         :LEX WE

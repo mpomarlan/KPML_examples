@@ -45,8 +45,24 @@
 
 (defparameter kpml nil)
 
+(defun replace-all (string part replacement &key (test #'char=))
+  "Returns a new string in which all the occurences of the part 
+is replaced with replacement."
+  (when (and part (not (equal "" part)))
+    (with-output-to-string (out)
+      (loop with part-length = (length part)
+            for old-pos = 0 then (+ pos part-length)
+            for pos = (search part string
+                              :start2 old-pos
+                              :test test)
+            do (write-string string out
+                             :start old-pos
+                             :end (or pos (length string)))
+            when pos do (write-string replacement out)
+            while pos))))
+
 (defun init-connection (port &optional (host nil host-p))
-  (if (host-p)
+  (if host-p
     (setf kpml (socket:socket-connect port host))
     (setf kpml (socket:socket-connect port))))
 
@@ -56,12 +72,16 @@
 	   (princ (code-char 10) stream))
 
 (defun run-example (example)
-  (let* ((logicalform (format nil "~a" (logicalform example)))
+  (let* ((package-prefix (format nil "~S" 'a))
+         (package-prefix (subseq package-prefix 0 (- (length package-prefix) 1)))
+         (logicalform (replace-all (format nil "~S" (logicalform example)) package-prefix " "))
+         (logicalform (substitute (code-char 32) (code-char 10) logicalform))
+         (logicalform (substitute (code-char 32) (code-char 13) logicalform))
          (targetform (format nil "~a" (targetform example)))
          (generatedform (format nil "~a" (generatedform example)))
-         (dummy (when kpml (send-line kpml logicalform)))
+         (dummy (when kpml (format t "LOGICAL FORM:~%~a~%" logicalform)(send-line kpml logicalform)))
          (act-genform (when kpml (read-line kpml nil nil))))
-    (declare (ignore kpml))
+    (declare (ignore dummy))
     (values act-genform generatedform targetform)))
 
 ;;(defparameter kpml (socket:socket-connect 4014))
