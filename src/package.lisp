@@ -46,7 +46,19 @@
            #:conc-coord1
            #:conc-coord2
            #:conc-final
+           #:conc-pp1
+           #:conc-pp2
+           #:conc-pp3
+           #:conc-sub-ext
+           #:conc-sub-rst1
            #:conc-test1
            #:conc-test2
            #:conc-thematic
-           #:conc-then))
+           #:conc-then
+           #:behrens1
+           #:behrens1a
+           #:behrens2
+           #:behrens3
+           #:behrens4
+           #:behrens5
+           #:behrens6))

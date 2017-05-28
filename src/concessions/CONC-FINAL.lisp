@@ -17,7 +17,7 @@
 (EXAMPLE
     :NAME   CONC-FINAL
     :SET-NAME   CONCESSIONS
-    :GENERATEDFORM   "We will go  [NIL] the lake still."
+    :GENERATEDFORM   "We will go to the lake still."
     :TARGETFORM   "We will go to the lake, still."
     :LOGICALFORM
       (GO / |space#NonAffectingDirectedMotion|
@@ -30,7 +30,11 @@
                         :LEX WE
                         :NUMBER PLURAL)
               :|space#direction|
-                (LA / |gum#Object|
-                  :LEX LAKE
-                  :DETERMINER THE))  
+                (L1 / |space#GeneralizedRoute|
+                                 :SPATIO-TEMPORAL-TYPE-Q SPATIAL
+                                 :SOURCE-DESTINATION-PROCESS-Q SOURCEDESTINATION
+                               :|space#relatum|
+                                 (LA / |gum#Object|
+                                         :LEX LAKE
+                                         :DETERMINER THE)))  
 )

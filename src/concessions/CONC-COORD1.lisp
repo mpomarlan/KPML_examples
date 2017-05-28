@@ -22,7 +22,7 @@
 (EXAMPLE
     :NAME   CONC-COORD1
     :SET-NAME   CONCESSIONS
-    :GENERATEDFORM   "The weather is bad ,but we will go  [NIL] the lake ."
+    :GENERATEDFORM   "The weather is bad ,but we will go to the lake ."
     :TARGETFORM   "The weather is bad, BUT we will go to the lake."
     :LOGICALFORM   
       (CON / |Conjunction|
@@ -48,7 +48,11 @@
                                  :LEX WE
                                  :NUMBER PLURAL)
                        :|space#direction|
-                         (LA / |gum#Object|
-                                 :LEX LAKE
-                                 :DETERMINER THE)))
+                         (L1 / |space#GeneralizedRoute|
+                                 :SPATIO-TEMPORAL-TYPE-Q SPATIAL
+                                 :SOURCE-DESTINATION-PROCESS-Q SOURCEDESTINATION
+                               :|space#relatum|
+                                 (LA / |gum#Object|
+                                         :LEX LAKE
+                                         :DETERMINER THE))))
 )

@@ -16,7 +16,7 @@
 (EXAMPLE
     :NAME   CONC-TEST1
     :SET-NAME   CONCESSIONS
-    :GENERATEDFORM   "We go  [NIL] the blue lake ."
+    :GENERATEDFORM   "We go to the blue lake ."
     :TARGETFORM   "We go to the blue lake."
     :LOGICALFORM
       (GO / |space#NonAffectingDirectedMotion|
@@ -27,9 +27,13 @@
                         :LEX WE
                         :NUMBER PLURAL)
               :|space#direction|
-                (LA / |gum#Object|
-                  :LEX LAKE
-                  :DETERMINER THE
-                  :|ColorPropertyAscription|
-                    (B / |Color| :LEX BLUE)))  
+                (L1 / |space#GeneralizedRoute|
+                                 :SPATIO-TEMPORAL-TYPE-Q SPATIAL
+                                 :SOURCE-DESTINATION-PROCESS-Q SOURCEDESTINATION
+                               :|space#relatum|
+                                 (LA / |gum#Object|
+                                         :LEX LAKE
+                                         :DETERMINER THE
+                                         :|ColorPropertyAscription|
+                    (B / |Color| :LEX BLUE))))  
 )

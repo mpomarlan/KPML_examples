@@ -16,7 +16,7 @@
 (EXAMPLE
     :NAME   CONC-ALSO
     :SET-NAME   CONCESSIONS
-    :GENERATEDFORM   "Also,we will go  [NIL] the lake ."
+    :GENERATEDFORM   "Also,we will go to the lake ."
     :TARGETFORM   "Also, we will go to the lake."
     :LOGICALFORM
       (GO / |space#NonAffectingDirectedMotion|
@@ -28,7 +28,17 @@
                         :LEX WE
                         :NUMBER PLURAL)
               :|space#direction|
-                (LA / |gum#Object|
-                  :LEX LAKE
-                  :DETERMINER THE))  
+                (L1 / |space#GeneralizedRoute|
+                        :SPATIO-TEMPORAL-TYPE-Q SPATIAL
+                        :SOURCE-DESTINATION-PROCESS-Q SOURCEDESTINATION
+                        ;:SOURCE-PROCESS-Q NONSOURCE
+                        ;:PROXIMAL-Q PROXIMAL
+                        ;:SOURCE-DESTINATION-Q SOURCEDESTINATION
+                        ;:SOURCE-PROCESS-Q NONSOURCE
+                      ;:|space#hasSpatialModality|
+                      ;  (SMSEQ / |space#Sequential| )
+                      :|space#relatum|
+                        (LA / |gum#Object|
+                              :LEX LAKE
+                              :DETERMINER THE)))  
 )

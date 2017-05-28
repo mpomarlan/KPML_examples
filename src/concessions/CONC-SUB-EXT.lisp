@@ -1,35 +1,40 @@
 (in-package :kpml-ex)
 
 ;(EXAMPLE
-;    :NAME   CONC-COORD2
-;    :GENERATEDFORM   "The weather is bad, yet we will go to the lake."
-;    :TARGETFORM   "The weather is bad, YET we will go to the lake."
+;    :NAME   CONC-SUB-EXT
+;    :GENERATEDFORM   "We will go to the lake, although the weather is bad."
+;    :TARGETFORM   "We will go to the lake, although the weather is bad."
 ;    :LOGICALFORM   
-;(CON / RST-CONTRASTIVE :CONTRASTIVE-CONCESSION-Q CONCESSIVE :DOMAIN
-;     (PA / PROPERTY-ASCRIPTION :TENSE PRESENT :DOMAIN
-;         (WE / OBJECT :LEX WEATHER :DETERMINER THE)
-;         :RANGE
-;         (B / QUALITY :LEX BAD))
-;     :RANGE
+;(RST / EXT-CONCESSIVE :CONDITION-Q NONCONDITION :INTENSIFICATION-Q
+;     NONINTENSIFIED :FORMAL-REGISTER-Q FORMAL :DOMAIN
 ;     (GO / NONDIRECTED-ACTION :LEX GO-VERB :ACTOR
 ;         (SPEAKER / PERSON :NUMBER PLURAL)
 ;         :DESTINATION
 ;         (LA / OBJECT :LEX LAKE :DETERMINER THE)
-;         :TENSE FUTURE))
+;         :TENSE FUTURE)
+;     :RANGE
+;     (PA / PROPERTY-ASCRIPTION :TENSE PRESENT :DOMAIN
+;         (WE / OBJECT :LEX WEATHER :DETERMINER THE)
+;         :RANGE
+;         (B / QUALITY :LEX BAD)))
 ;    :SET-NAME   CONCESSIONS
 ;)
 
 (EXAMPLE
-    :NAME   CONC-COORD2
+    :NAME   CONC-SUB-EXT
     :SET-NAME   CONCESSIONS
-    :GENERATEDFORM   "The weather is bad ,and we will go to the lake ."
-    :TARGETFORM   "The weather is bad, YET we will go to the lake."
+    :GENERATEDFORM   "We will go to the lake ,and the weather is bad ."
+    :TARGETFORM   "We will go to the lake, although the weather is bad."
     :LOGICALFORM   
       (CON / |Conjunction|
                :exist-speech-act-q speechact
                :statement-q statement
-               :concessive-condition-q notconcessive
-             :|domain|
+               :CONCESSIVE-CONDITION-Q CONCESSIVE
+               :LOGICAL-CONDITION-Q NONLOGICALCONDITION
+;               :CONDITION-Q NONCONDITION
+;               :INTENSIFICATION-Q NONINTENSIFIED
+               :FORMAL-REGISTER-Q FORMAL 
+             :|range|
                (PA / |gum#PropertyAscription| 
                        :LEX BE 
                        :TENSE PRESENT 
@@ -39,7 +44,7 @@
                                  :DETERMINER THE)
                        :|gum#range|
                          (B / |gum#ModalQuality| :LEX BAD))
-             :|range|
+             :|domain|
                (GO / |space#NonAffectingDirectedMotion|
                        :LEX GO-VERB
                        :TENSE FUTURE
