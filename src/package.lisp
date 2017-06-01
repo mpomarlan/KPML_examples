@@ -41,6 +41,8 @@
            #:generatedform
            #:logicalform
            #:targetform
+           #:reuters2
+           #:reuters19
            #:conc-also
            #:conc-conjunctive
            #:conc-coord1
@@ -55,6 +57,16 @@
            #:conc-test2
            #:conc-thematic
            #:conc-then
+           #:comp-double-prop1
+           #:comp-double-prop2
+           #:comp-farmore
+           #:comp-more
+           #:comp-muchmore
+           #:comp-verymuchmore
+           #:comp-single-prop
+           #:comp-triple-as
+           #:comp-triple-less
+           #:comp-triple-prop
            #:behrens1
            #:behrens1a
            #:behrens2

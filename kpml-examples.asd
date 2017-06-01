@@ -14,6 +14,11 @@
       :components
         ((:file "package")
          (:file "utils" :depends-on ("package"))
+         (:module "reuters" :depends-on ("package" "utils")
+          :components
+             ((:file "REUTERS2")
+              (:file "REUTERS19")
+              ))
          (:module "concessions" :depends-on ("package" "utils")
           :components
             ((:file "CONC-ALSO")
@@ -30,6 +35,19 @@
              (:file "CONC-TEST2")
              (:file "CONC-THEMATIC")
              (:file "CONC-THEN")))
+         (:module "comparatives" :depends-on ("package" "utils")
+          :components
+             ((:file "COMP-DOUBLE-PROP1")
+              (:file "COMP-DOUBLE-PROP2")
+              (:file "COMP-FARMORE")
+              (:file "COMP-MORE")
+              (:file "COMP-MUCHMORE")
+              (:file "COMP-VERYMUCHMORE")
+              (:file "COMP-SINGLE-PROP")
+              (:file "COMP-TRIPLE-AS")
+              (:file "COMP-TRIPLE-LESS")
+              (:file "COMP-TRIPLE-PROP")
+              ))
          (:module "komet" :depends-on ("package" "utils")
           :components
              ((:file "BEHRENS1")
