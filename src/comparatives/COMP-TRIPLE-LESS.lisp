@@ -20,14 +20,12 @@
 (EXAMPLE
     :NAME   COMP-TRIPLE-LESS
     :SET-NAME   COMPARATIVES
-    :GENERATEDFORM   "The month was cool, dry and temperate ."
+    :GENERATEDFORM   "The month was less cool,less dry and less temperate than average ."
     :TARGETFORM   "The month was less cool and less dry and less temperate than average."
     :LOGICALFORM   
       (L / |LessThanComparison|
              :LEX BE
              :TENSE PAST
-             :EXCEED-Q (L A) NONEXCEED
-             :EXCEED-Q EXCEED (L A)
 
              :|domain|
                (M / |OneOrTwoDTime|
@@ -36,15 +34,15 @@
              :|standard|
                (A / |GUMThing|
                       :LEX AVERAGE
+                      :EXCEED-Q (L A) NONEXCEED
+                      :EXCEED-Q (A L) EXCEED
                       :DETERMINER ZERO)
              :|range|
-               ;(
-               ; (C / |SenseANDMeasureQuality|
-               ;        :LEX COOL)
-               ; (D / |SenseANDMeasureQuality|
-               ;        :LEX DRY) 
+               ((C / |SenseANDMeasureQuality|
+                       :LEX COOL)
+                (D / |SenseANDMeasureQuality|
+                       :LEX DRY) 
                 (T / |SenseANDMeasureQuality|
-                       :LEX TEMPERATE)
-               ; )
+                       :LEX TEMPERATE))
            )
 )

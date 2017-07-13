@@ -54,7 +54,7 @@
 (EXAMPLE
     :NAME   BEHRENS6
     :SET-NAME   komet
-    :GENERATEDFORM   "The Grand Duke of Hessen  invited a stay in Darmstadt  and a join to Behrens ."
+    :GENERATEDFORM   "The Grand Duke of Hessen  invited Behrens  to stay in Darmstadt  in 1899 ."
     :TARGETFORM   "The Grand Duke of Hessen invited Behrens to stay in Darmstadt in 1899 and to join a group of young artists who had as their aim the establishment of effective relationships between all the plastic arts."
     :LOGICALFORM   
       (IV / |AddressingVerbal|
@@ -70,29 +70,31 @@
                 (BH / |Person|
                         :NAME |Behrens|)
               :|saying|
-                ((ST / |NonAffectingAction|
+                ;(
+                 (ST / |Process|
                          :LEX STAY
-                         :PROPOSAL-Q PROPOSAL
-                         :|SpatialLocating|
+                         :|space#placement|
                            (K / |ThreeDLocation|
-                                  :NAME Darmstadt))
-                 (JN / |AffectingAction|
-                         :LEX JOIN
-                         :PROPOSAL-Q PROPOSAL
-                         :|range|
-                           (GR / |Object|
-                                   :LEX GROUP
-                                   :|PartOf|
-            (A1 / |Object|
-                    :LEX ARTIST
-                    :MULTIPLICITY-Q MULTIPLE
-                    :SINGULARITY-Q NONSINGULAR
-                    :|AgePropertyAscription|
-                      (Y / |AgeQuality|
-                             :LEX YOUNG))                                   
-                                   )
-                         )
-                 )
+                                  :NAME Darmstadt)
+                         :|space#TemporalLocating|
+                           (ATD / |ThreeDTime|
+                                    :NAME |1899|))
+                ; (JN / |Process|
+                ;         :LEX JOIN
+                ;         :|actee|
+                ;           (GR / |Object|
+                ;                   :LEX GROUP) 
+                ;                   :|PartOf|
+            ;(A1 / |Object|
+            ;        :LEX ARTIST
+            ;        :MULTIPLICITY-Q MULTIPLE
+            ;        :SINGULARITY-Q NONSINGULAR
+            ;        :|AgePropertyAscription|
+            ;          (Y / |AgeQuality|
+            ;                 :LEX YOUNG))                                   
+            ;                       )
+            ;             )
+                 ;)
             
               )
 )

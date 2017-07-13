@@ -28,12 +28,12 @@
 (EXAMPLE
     :NAME   BEHRENS1A
     :SET-NAME   komet
-    :GENERATEDFORM   "Behrens (Peter)  was created in Hamburg  [NIL] 1868 ,and he died in Berlin  [NIL] 1940 ."
+    :GENERATEDFORM   "Behrens (Peter)  was born in Hamburg  in 1868 ,and he died in Berlin  in 1940 ."
     :TARGETFORM   "Behrens (Peter) was born in Hamburg in 1868 and died in Berlin in 1940."
     :LOGICALFORM   
       ((BR DD)
        (BR / |AffectingAction|
-               :LEX CREATE
+               :LEX BIRTH-VERB
                :TENSE PAST
                :PP-THEME P1
                :TIMELOCATIVE-THEME-Q CONTEXT
@@ -44,8 +44,8 @@
                          :IDENTIFIABILITY-Q IDENTIFIABLE
                          :SINGULARITY-Q NONSINGULAR
                          :MULTIPLICITY-Q UNITARY)
-               :|space#TemporalLocating|
-                 (AT1 / |Year|
+   :|space#TemporalLocating|
+                 (AT1 / |ThreeDTime|
                           :NAME |1868|)
                :|space#destination|
                  (L1 / |space#GeneralizedLocation|
@@ -67,7 +67,7 @@
                          :IDENTIFIABILITY-Q IDENTIFIABLE
                          :GENDER-Q MALE)
                :|space#TemporalLocating|
-                 (AT1 / |Year|
+                 (AT2 / |ThreeDTime|
                           :NAME |1940|)
                :|space#destination|
                  (L1 / |space#GeneralizedLocation|

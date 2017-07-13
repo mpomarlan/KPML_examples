@@ -19,7 +19,7 @@
 (EXAMPLE
     :NAME   COMP-DOUBLE-PROP1
     :SET-NAME   COMPARATIVES
-    :GENERATEDFORM   "The month was cool and dry ."
+    :GENERATEDFORM   "The month was cooler and drier than average ."
     :TARGETFORM   "The month was cooler and drier than average."
     :LOGICALFORM   
       (L / |GreaterThanComparison|
@@ -44,11 +44,49 @@
                       :LEX AVERAGE
                       :DETERMINER ZERO)
              :|range|
-               ((C / |SenseANDMeasureQuality|
+               (
+                (C / |SenseANDMeasureQuality|
                        :LEX COOL) 
                 (D / |SenseANDMeasureQuality|
-                       :LEX DRY)))
-
-
-
+                       :LEX DRY))
+             )
 )
+
+;(EXAMPLE
+;    :NAME   COMP-DOUBLE-PROP1
+;    :SET-NAME   COMPARATIVES
+;    :GENERATEDFORM   "The month was cooler than average, and it was drier than the average ."
+;    :TARGETFORM   "The month was cooler and drier than average."
+;    :LOGICALFORM
+;      ((L K)   
+;      (L / |GreaterThanComparison|
+;             :LEX BE
+;             :TENSE PAST
+;             :EXCEED-Q EXCEED
+;
+;             :|domain|
+;               (M / |OneOrTwoDTime|
+;                      :LEX MONTH
+;                      :DETERMINER THE)
+;             :|standard|
+;               (A / |GUMThing|
+;                      :LEX AVERAGE
+;                      :DETERMINER ZERO)
+;             :|range|
+;               (C / |SenseANDMeasureQuality|
+;                      :LEX COOL) 
+;             )
+;      (K / |GreaterThanComparison|
+;             :LEX BE
+;             :TENSE PAST
+;             :EXCEED-Q EXCEED
+;
+;             :|domain| M
+;             :|standard| A
+;             :|range|
+;               (D / |SenseANDMeasureQuality|
+;                      :LEX DRY)
+;             )
+;       )
+;)
+

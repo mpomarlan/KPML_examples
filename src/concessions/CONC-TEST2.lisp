@@ -17,7 +17,7 @@
 (EXAMPLE
     :NAME   CONC-TEST2
     :SET-NAME   CONCESSIONS
-    :GENERATEDFORM   "We go to the lake whereas it is a blue ."
+    :GENERATEDFORM   "We go to the lake that is blue."
     :TARGETFORM   "We go to the lake that is blue."
     :LOGICALFORM
       (GO / |space#NonAffectingDirectedMotion|
@@ -38,9 +38,10 @@
                                          :RELATIONS
                     (PA / |gum#PropertyAscription| 
                              :LEX BE
+                             :PROPERTY-Q PROPERTY
                              :TENSE PRESENT
                              :|gum#domain| LA
                              :|gum#range|
-                               (B / |ColorQuality| :LEX BLUE)))))  
+                               (B / |Color| :LEX BLUE)))))  
 )
 

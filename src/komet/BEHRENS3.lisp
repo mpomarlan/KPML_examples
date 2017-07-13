@@ -24,7 +24,7 @@
 (EXAMPLE
     :NAME   BEHRENS3
     :SET-NAME   komet
-    :GENERATEDFORM   "He attended the art schools in Karlsruhe  and Duesseldorf  [NIL] 1886-1889."
+    :GENERATEDFORM   "He attended the art schools in Karlsruhe  and Duesseldorf  in 1886-1889 ."
     :TARGETFORM   "He attended the art schools in Karlsruhe and Duesseldorf in 1886-1889."
     :LOGICALFORM   
       (P3 / |AffectingAction|

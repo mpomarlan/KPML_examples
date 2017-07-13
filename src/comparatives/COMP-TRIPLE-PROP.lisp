@@ -20,7 +20,7 @@
 (EXAMPLE
     :NAME   COMP-TRIPLE-PROP
     :SET-NAME   COMPARATIVES
-    :GENERATEDFORM   "The month was cool, dry and temperate ."
+    :GENERATEDFORM   "The month was cooler, drier and more temperate than average ."
     :TARGETFORM   "The month was cooler and drier and more temperate than average."
     :LOGICALFORM   
       (L / |GreaterThanComparison|

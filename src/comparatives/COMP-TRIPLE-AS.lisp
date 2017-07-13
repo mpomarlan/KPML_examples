@@ -22,7 +22,7 @@
 (EXAMPLE
     :NAME   COMP-TRIPLE-AS
     :SET-NAME   COMPARATIVES
-    :GENERATEDFORM   "The month was cool, dry and temperate ."
+    :GENERATEDFORM   "The month was as cool, as dry and as temperate as average ."
     :TARGETFORM   "The month was as cool and as dry and as temperate as average."
     :LOGICALFORM   
       (L / |GreaterThanComparison|
@@ -43,7 +43,7 @@
                 (C / |SenseANDMeasureQuality|
                        :LEX COOL)
                 (D / |SenseANDMeasureQuality|
-                       :LEX DRY) 
+                       :LEX DRY)
                 (T / |SenseANDMeasureQuality|
                        :LEX TEMPERATE)
                 )

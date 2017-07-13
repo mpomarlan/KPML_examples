@@ -19,7 +19,7 @@
 (EXAMPLE
     :NAME   COMP-DOUBLE-PROP2
     :SET-NAME   COMPARATIVES
-    :GENERATEDFORM   "The month was cool and temperate ."
+    :GENERATEDFORM   "The month was cooler and more temperate than average ."
     :TARGETFORM   "The month was cooler and more temperate than average."
     :LOGICALFORM   
       (L / |GreaterThanComparison|

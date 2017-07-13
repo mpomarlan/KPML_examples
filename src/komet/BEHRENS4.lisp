@@ -38,7 +38,7 @@
 (EXAMPLE
     :NAME   BEHRENS4
     :SET-NAME   komet
-    :GENERATEDFORM   "He studied in Munich  [NIL] 1890 with Hugo Kotschenreiter ,and he acted  [NIL] 1893  as a co-founder of Muenchner Sezession ."
+    :GENERATEDFORM   "He studied in Munich  in 1890 with Hugo Kotschenreiter ,and he acted  in 1893  as a co-founder of the Muenchner Sezession."
     :TARGETFORM   "In 1890 he studied in Munich with Hugo Kotschenreiter, and in 1893 he acted as a co-founder of the Muenchner Sezession."
     :LOGICALFORM   
       ((P4 P5)
@@ -88,10 +88,8 @@
                          :IDENTIFIABILITY-Q NOTIDENTIFIABLE
                          :|PartOf|
                            (MS / |Object|
-                                   :NAME |Muenchner Sezession|
-                                   :IDENTIFIABILITY-Q NOTIDENTIFIABLE
-                                   :MULTIPLICITY-Q UNITARY
-                                   :EMPTY-NUMBER-Q EMPTY))
+                                   :LEX MUENCHNER-SEZESSION
+                                   :DETERMINER THE))
                :|space#TemporalLocating|
                  (AT2 / |Year|
                           :NAME |1893|)
