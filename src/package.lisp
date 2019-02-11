@@ -34,6 +34,7 @@
   (:nicknames :kpml-ex)
   (:export #:example
            #:kpml-example
+           #:depackaged-logicalform
            #:run-example
            #:init-connection
            #:name

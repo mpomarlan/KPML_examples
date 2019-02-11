@@ -48,7 +48,7 @@
 (defun replace-all (string part replacement &key (test #'char=))
   "Returns a new string in which all the occurences of the part 
 is replaced with replacement."
-  (when (and part (not (equal "" part)))
+  (if (and part (not (equal "" part)))
     (with-output-to-string (out)
       (loop with part-length = (length part)
             for old-pos = 0 then (+ pos part-length)
@@ -59,32 +59,48 @@ is replaced with replacement."
                              :start old-pos
                              :end (or pos (length string)))
             when pos do (write-string replacement out)
-            while pos))))
+            while pos))
+    string))
 
-(defun init-connection (port &optional (host nil host-p))
-  (if host-p
-    (setf kpml (socket:socket-connect port host))
-    (setf kpml (socket:socket-connect port))))
+(defun init-connection (&optional (port 4014) (host "127.0.0.1"))
+  (setf kpml (usocket:socket-connect host port)))
 
-(defun send-line (stream line)
-	   (princ line stream)
-	   (princ (code-char 13) stream)
-	   (princ (code-char 10) stream))
+(defun send-line (socket line)
+           (format (usocket:socket-stream socket)
+                   "~A~C~C"
+                   line
+                   #\Return #\Newline)
+           (force-output (usocket:socket-stream socket))
+           )
 
-(defun run-example (example)
+(defun clear-line (socket)
+  (when (listen (usocket:socket-stream socket))
+    (read-line (usocket:socket-stream socket) nil nil)
+    (clear-line socket)))
+
+(defun depackaged-logicalform (logicalform)
   (let* ((package-prefix (format nil "~S" 'a))
          (package-prefix (subseq package-prefix 0 (- (length package-prefix) 1)))
-         (logicalform (replace-all (format nil "~S" (logicalform example)) package-prefix " "))
+         (logicalform (format nil "~S" logicalform))
+         (logicalform (replace-all logicalform package-prefix " "))
          (logicalform (substitute (code-char 32) (code-char 10) logicalform))
-         (logicalform (substitute (code-char 32) (code-char 13) logicalform))
+         (logicalform (substitute (code-char 32) (code-char 13) logicalform)))
+    logicalform))
+
+(defun run-example (example)
+  (let* ((logicalform (depackaged-logicalform (logicalform example)))
          (targetform (format nil "~a" (targetform example)))
          (generatedform (format nil "~a" (generatedform example)))
-         (dummy (when kpml (format t "LOGICAL FORM:~%~a~%" logicalform)(send-line kpml logicalform)))
-         (act-genform (when kpml (read-line kpml nil nil))))
+         (dummy (when kpml
+                  (format t "LOGICAL FORM:~%~a~%" logicalform)
+                  (clear-line kpml)
+                  (send-line kpml logicalform)))
+         (act-genform (when kpml (read-line (usocket:socket-stream kpml) nil nil)))         
+         )
     (declare (ignore dummy))
     (values act-genform generatedform targetform)))
 
-;;(defparameter kpml (socket:socket-connect 4014))
+;;(defparameter kpml (usocket:socket-connect 4014))
 
 ;;(read-line kpml nil nil)
 

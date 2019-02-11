@@ -8,7 +8,7 @@
   :maintainer "Mihai Pomarlan <mpomarlan@yahoo.co.uk>"
   :licence "BSD"
   :description "Newer versions of KPML examples."
-  :depends-on ()
+  :depends-on (usocket)
   :components
     ((:module "src"
       :components
