@@ -14,6 +14,10 @@
       :components
         ((:file "package")
          (:file "utils" :depends-on ("package"))
+         (:module "geometry" :depends-on ("package" "utils")
+           :components
+             ((:file "SPL37")
+              ))
          (:module "reuters" :depends-on ("package" "utils")
           :components
              ((:file "REUTERS2")

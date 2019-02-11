@@ -36,8 +36,24 @@
    (targetform :initarg :targetform :initform "" :reader targetform)
    (logicalform :initarg :logicalform :initform nil :reader logicalform)))
 
+(defun replace-vars-by-vals (lexp)
+  (if (listp lexp)
+    (mapcar #'replace-vars-by-vals lexp)
+    (if (and (symbolp lexp)
+             (equal (char (symbol-name lexp) 0) #\?))
+      (logicalform (symbol-value lexp))
+      lexp)))
+
 (defmacro example (&rest args)
   (let* ((args (cons 'kpml-example args))
+         (logical-pos (position :logicalform args))
+         (logical-form (when logical-pos
+                         (replace-vars-by-vals (nth (+ logical-pos 1) args))))
+         (args (if logical-pos
+                 (append (subseq args 0 (+ logical-pos 1))
+                         (list logical-form)
+                         (subseq args (+ logical-pos 2)))
+                 args))
          (name-pos (position :name args))
          (var-name (when name-pos
                      (nth (+ name-pos 1) args))))
