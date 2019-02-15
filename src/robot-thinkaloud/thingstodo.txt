@@ -1,0 +1,78 @@
+
+SET-TABLE-DOING-PICK-UP:
+I am picking up the spoon.
+{doing CURRENT}
+notes: all ok
+
+SET-TABLE-CAN-SET:
+I can set the table.
+{can TOP}
+notes: all ok
+
+SET-TABLE-DOING-SET:
+I am setting the table.
+{doing TOP}
+notes: all ok
+
+SET-TABLE-CAN-EAT:
+We can eat lunch.
+{can ENABLED}
+notes: generating "Persons can eat lunch."
+
+SET-TABLE-WILL-EAT:
+We will eat lunch.
+{will do ENABLED}
+notes: generating "Persons will eat lunch."
+
+SET-TABLE-CstT:
+I am picking up the spoon so that I can set the table.
+{doing CURRENT} so that {can TOP}
+notes: generating "I am picking up the spoon, in order to be set the table."
+
+SET-TABLE-CbT:
+I am picking up the spoon because I'm setting the table.
+{doing CURRENT} because {doing TOP}
+notes: all ok
+
+SET-TABLE-TstE:
+I am setting the table so that we can eat lunch.
+{doing TOP} so that {can ENABLED}
+notes: generating "I am setting the table in order to be eating lunch."
+
+SET-TABLE-TtC:
+I am setting the table therefore I am picking up the spoon.
+{doing TOP} therefore {doing CURRENT}
+notes: generating "huh?"
+
+SET-TABLE-CbTstE:
+I am picking up the spoon because I'm setting the table so that we can eat lunch.
+{doing CURRENT} because {doing TOP} so that {can ENABLED}
+notes: generating "I am picking up the spoon because I'm setting the table in order to be eating lunch."
+
+(not attempted yet)
+I am picking up the spoon so that I can set the table because we will eat lunch.
+{doing CURRENT} so that {can TOP} because {will do ENABLED}
+
+(not attempted yet)
+I am setting the table because we will eat lunch, therefore I am picking up the spoon.
+{doing TOP} because {will do ENABLED} therefore {doing CURRENT}
+
+(not attempted yet)
+I am setting the table so that we can eat lunch, therefore I am picking up the spoon.
+{doing TOP} so that {can ENABLED} therefore {doing CURRENT}
+
+(not attempted yet)
+We will eat lunch, therefore I am setting the table, therefore I am picking up the spoon.
+{will do ENABLED} therefore {doing TOP} therefore {doing CURRENT}
+
+
+LEX additions needed:
+breakfast
+dinner
+lunch
+pick-up
+set-verb
+spoon
+table
+
+

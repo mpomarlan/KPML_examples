@@ -1,0 +1,124 @@
+(in-package "KPML")
+
+;;; File creation information: 
+;;; 9-6-1999 22:06:05 at Unknown.
+
+
+(in-language :languages :ENGLISH)
+
+(LEXICAL-ITEM
+    :NAME   BREAKFAST
+    :SPELLING   "breakfast"
+    :SAMPLE-SENTENCE   "We are eating breakfast."
+    :FEATURES   (NONE-OF-THATCOMP-TYPIC NONSUBSTITUTE COUNTABLE NOT-NOMINALIZATION
+                        COMMON-NOUN S NOUN)
+    :COMMENTS   "meal"
+    :EDITOR   "BLANDC"
+    :DATE   "02/15/2018 20:24:17"
+)
+
+(LEXICAL-ITEM
+    :NAME   DINNER
+    :SPELLING   "dinner"
+    :SAMPLE-SENTENCE   "We are eating dinner."
+    :FEATURES   (NONE-OF-THATCOMP-TYPIC NONSUBSTITUTE COUNTABLE NOT-NOMINALIZATION
+                        COMMON-NOUN S NOUN)
+    :COMMENTS   "meal"
+    :EDITOR   "BLANDC"
+    :DATE   "02/15/2018 20:27:33"
+)
+
+(LEXICAL-ITEM
+    :NAME   LUNCH
+    :SPELLING   "lunch"
+    :SAMPLE-SENTENCE   "We are eating lunch."
+    :FEATURES   (NONE-OF-THATCOMP-TYPIC NONSUBSTITUTE COUNTABLE NOT-NOMINALIZATION
+                        COMMON-NOUN S NOUN)
+    :COMMENTS   "meal"
+    :EDITOR   "BLANDC"
+    :DATE   "02/15/2018 20:24:17"
+)
+
+(LEXICAL-ITEM
+    :NAME   PICK-UP
+    :SPELLING   "pick up"
+    :SAMPLE-SENTENCE   "I am picking up the spoon"
+    :FEATURES   (NOT-BAREINFINITIVECOMP NOT-THATCOMP PARTICIPLECOMP NOT-SUBJECTCOMP
+                        NOT-OBJECTNOTREQUIRED EFFECTIVE-VERB DISPOSAL-VERB DO-VERB
+                        NOT-ADJECTIVECOMP NOT-COPULA PASSIVE
+                        NONE-OF-BITRANSITIVE-INDIRECTOBJECT
+                        OBJECTPERMITTED NOT-MAKECOMP NOT-QUESTIONCOMP
+                        NOT-TOCOMP NOT-CASEPREPOSITIONS LEXICAL
+                        IMMOVABLEPARTICLES 
+                        PASTFORM INGPARTICIPLEFORM
+                        THIRDSINGULARFORM EDPARTICIPLEFORM
+                        PLURALPASTFORM IRR COMPOUNDSPELLING INFLECTABLE
+                        VERB)
+    :PROPERTIES   ((PLURALPASTFORM "picked up") 
+ (EDPARTICIPLEFORM "picked up")
+ (THIRDSINGULARFORM "picks up")
+ (INGPARTICIPLEFORM "picking up")
+ (PASTFORM "picked up"))
+    :EDITOR   "BLANDC"
+    :DATE   "02/15/2018 16:45:34"
+)
+
+(LEXICAL-ITEM
+    :NAME   SET-VERB
+    :SPELLING   "set"
+    :SAMPLE-SENTENCE   "I am setting the table."
+    :FEATURES   (NOT-THATREQUIRED NOT-SUBJUNCTIVEREQUIRED
+                 PLURALPASTFORM SECONDSINGULARPASTFORM
+                 EDPARTICIPLEFORM FIRSTSINGULARFORM
+                 PLURALFORM PASTFORM
+                 INGPARTICIPLEFORM THIRDSINGULARFORM
+                 THIRDSINGULARPASTFORM FIRSTSINGULARPASTFORM
+                 SECONDSINGULARFORM IRR
+                 NOT-THATCOMP NONE-OF-BITRANSITIVE-INDIRECTOBJECT PASSIVE NOT-COPULA
+                 NOT-OBJECTNOTREQUIRED OBJECTPERMITTED
+                 NOT-BAREINFINITIVECOMP
+                 NOT-PARTICIPLECOMP
+                 NOT-SUBJECTCOMP
+                 EFFECTIVE-VERB DISPOSAL-VERB DO-VERB NOT-ADJECTIVECOMP
+                 NOT-MAKECOMP NOT-QUESTIONCOMP NOT-TOCOMP
+                 NOT-CASEPREPOSITIONS LEXICAL
+                 UNITARYSPELLING
+                 INFLECTABLE VERB)
+    :PROPERTIES   ((INGPARTICIPLEFORM "setting") 
+                   (EDPARTICIPLEFORM "set")
+                   (PLURALPASTFORM "set")
+                   (THIRDSINGULARPASTFORM "set")
+                   (SECONDSINGULARPASTFORM "set")
+                   (FIRSTSINGULARPASTFORM "set")
+                   (PASTFORM "set")
+                   (PLURALFORM "set")
+                   (SECONDSINGULARFORM "set")
+                   (FIRSTSINGULARFORM "set")
+                   (THIRDSINGULARFORM "sets"))
+    :EDITOR   "BLANDC"
+    :DATE   "02/15/2018 16:14:14"
+    :SEMANTICS (NIL)
+)
+
+(LEXICAL-ITEM
+    :NAME   SPOON
+    :SPELLING   "spoon"
+    :SAMPLE-SENTENCE   "I am picking up the spoon"
+    :FEATURES   (NONE-OF-THATCOMP-TYPIC NONSUBSTITUTE COUNTABLE NOT-NOMINALIZATION
+                        COMMON-NOUN S NOUN)
+    :COMMENTS   "object"
+    :EDITOR   "BLANDC"
+    :DATE   "02/15/2018 16:42:00"
+)
+
+(LEXICAL-ITEM
+    :NAME   TABLE
+    :SPELLING   "table"
+    :SAMPLE-SENTENCE   "I am setting the table"
+    :FEATURES   (NONE-OF-THATCOMP-TYPIC NONSUBSTITUTE COUNTABLE NOT-NOMINALIZATION
+                        COMMON-NOUN S NOUN)
+    :COMMENTS   "object"
+    :EDITOR   "BLANDC"
+    :DATE   "02/15/2018 16:10:00"
+)
+

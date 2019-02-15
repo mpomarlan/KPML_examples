@@ -14,15 +14,37 @@
       :components
         ((:file "package")
          (:file "utils" :depends-on ("package"))
-         (:module "geometry" :depends-on ("package" "utils")
-           :components
-             ((:file "SPL37")
+         (:module "robot-thinkaloud" :depends-on ("package" "utils")
+          :components
+             ((:file "SET-TABLE-DOING-PICK-UP")
+              (:file "SET-TABLE-CAN-SET")
+              (:file "SET-TABLE-DOING-SET")
+              (:file "SET-TABLE-CAN-EAT")
+              (:file "SET-TABLE-WILL-EAT")
+              (:file "SET-TABLE-CbT" :depends-on ("SET-TABLE-DOING-PICK-UP" "SET-TABLE-DOING-SET"))
+              (:file "SET-TABLE-TtC" :depends-on ("SET-TABLE-DOING-PICK-UP" "SET-TABLE-DOING-SET"))
+              (:file "SET-TABLE-CstT" :depends-on ("SET-TABLE-DOING-PICK-UP" "SET-TABLE-CAN-SET"))
+              (:file "SET-TABLE-TstE" :depends-on ("SET-TABLE-DOING-SET" "SET-TABLE-CAN-EAT"))
+              (:file "SET-TABLE-CbTstE" :depends-on ("SET-TABLE-DOING-PICK-UP" "SET-TABLE-TstE"))
+              ;;(:file "SET-TABLE-4")
               ))
          (:module "reuters" :depends-on ("package" "utils")
           :components
              ((:file "REUTERS2")
               (:file "REUTERS19")
               ))
+         (:module "gum-nigel" :depends-on ("package" "utils")
+          :components
+            ((:file "EX-SET-31")
+             (:file "EX-SET-35")
+             (:file "EX-SET-55")
+             (:file "EX-SET-58")
+             (:file "EX-SET-59")
+             ))
+         (:module "geometry" :depends-on ("package" "utils")
+          :components
+            ((:file "SPL37")
+             ))
          (:module "concessions" :depends-on ("package" "utils")
           :components
             ((:file "CONC-ALSO")

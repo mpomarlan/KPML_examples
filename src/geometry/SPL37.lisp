@@ -9,7 +9,7 @@
      (SL1 / |space#AffectingDirectedMotion|
           :LEX TAKE
           :speechact imperative
-          :SPATIAL-LOCATION-SPECIFICATION-Q NOSPATIALLOCATION
+          :spatial-location-specification-q nospatiallocation
           :|actor|
               (HEARER / |person|)
           :same-as-q same
@@ -26,7 +26,7 @@
                   :|space#relatum|
                       (R1 / |GUMThing|
                           :LEX second-floor
-                          :IDENTIFIABILITY-Q IDENTIFIABLE))))
+                          :identifiability-q identifiable))))
 
 
 (EXAMPLE
@@ -38,7 +38,7 @@
      (SL2 / |space#NonAffectingDirectedMotion|
           :LEX GO
           :speechact imperative
-          :SPATIAL-LOCATION-SPECIFICATION-Q NOSPATIALLOCATION
+          :spatial-location-specification-q nospatiallocation
           :|actor|
               (HEARER / |person|)
           :|space#pathIndication|
@@ -50,7 +50,7 @@
                           :|space#relatum|
                               (R5 / |GUMThing|
                                   :LEX lift
-                                  :IDENTIFIABILITY-Q IDENTIFIABLE))))
+                                  :identifiability-q identifiable))))
 
 (EXAMPLE
      :NAME                   ?SPL37
