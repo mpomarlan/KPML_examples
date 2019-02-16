@@ -17,12 +17,12 @@ notes: all ok
 SET-TABLE-CAN-EAT:
 We can eat lunch.
 {can ENABLED}
-notes: generating "Persons can eat lunch."
+notes: all ok
 
 SET-TABLE-WILL-EAT:
 We will eat lunch.
 {will do ENABLED}
-notes: generating "Persons will eat lunch."
+notes: generating all ok
 
 SET-TABLE-CstT:
 I am picking up the spoon so that I can set the table.

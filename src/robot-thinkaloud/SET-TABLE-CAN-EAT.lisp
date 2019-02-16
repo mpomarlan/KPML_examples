@@ -3,7 +3,7 @@
 (EXAMPLE
     :NAME   ?SET-TABLE-CAN-EAT
     :SET-NAME   |robot-thinkaloud|
-    :GENERATEDFORM   "Persons can eat lunch ."
+    :GENERATEDFORM   "We can eat lunch ."
     :TARGETFORM   "We can eat lunch."
     :LOGICALFORM   
         (EAT / |DispositiveMaterialAction|
@@ -19,7 +19,7 @@
             :|ModalPropertyAscription|
                 (MOD / (CONDITIONAL ABILITY))
             :|actor|
-                (WE / |Person|
+                (SPEAKER / |Person|
                     :PRONOUN WE
                     :number plural)
             :|actee|
