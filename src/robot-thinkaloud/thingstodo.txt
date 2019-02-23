@@ -1,3 +1,17 @@
+COVER-POT-DOING-COVER:
+I am covering the pot with the plate.
+{doing CURRENT}
+notes: all ok
+
+COVER-POT-HAVE:
+I do not have a lid.
+{state FACT}
+notes: all ok
+
+COVER-POT-CbR:
+I am covering the pot with the plate, because I do not have a lid.
+{doing CURRENT} because {state FACT}
+notes: generating "I am covering the pot with the plate, because of having lid."
 
 SET-TABLE-DOING-PICK-UP:
 I am picking up the spoon.

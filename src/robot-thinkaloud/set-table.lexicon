@@ -14,7 +14,7 @@
                         COMMON-NOUN S NOUN)
     :COMMENTS   "meal"
     :EDITOR   "BLANDC"
-    :DATE   "02/15/2018 20:24:17"
+    :DATE   "02/15/2019 20:24:17"
 )
 
 (LEXICAL-ITEM
@@ -25,7 +25,18 @@
                         COMMON-NOUN S NOUN)
     :COMMENTS   "meal"
     :EDITOR   "BLANDC"
-    :DATE   "02/15/2018 20:27:33"
+    :DATE   "02/15/2019 20:27:33"
+)
+
+(LEXICAL-ITEM
+    :NAME   LID
+    :SPELLING   "lid"
+    :SAMPLE-SENTENCE   "I am covering the plate with the lid."
+    :FEATURES   (NONE-OF-THATCOMP-TYPIC NONSUBSTITUTE COUNTABLE NOT-NOMINALIZATION
+                        COMMON-NOUN S NOUN)
+    :COMMENTS   "object"
+    :EDITOR   "BLANDC"
+    :DATE   "02/23/2019 12:59:22"
 )
 
 (LEXICAL-ITEM
@@ -36,7 +47,7 @@
                         COMMON-NOUN S NOUN)
     :COMMENTS   "meal"
     :EDITOR   "BLANDC"
-    :DATE   "02/15/2018 20:24:17"
+    :DATE   "02/15/2019 20:24:17"
 )
 
 (LEXICAL-ITEM
@@ -60,7 +71,29 @@
  (INGPARTICIPLEFORM "picking up")
  (PASTFORM "picked up"))
     :EDITOR   "BLANDC"
-    :DATE   "02/15/2018 16:45:34"
+    :DATE   "02/15/2019 16:45:34"
+)
+
+(LEXICAL-ITEM
+    :NAME   PLATE
+    :SPELLING   "plate"
+    :SAMPLE-SENTENCE   "I am covering the plate"
+    :FEATURES   (NONE-OF-THATCOMP-TYPIC NONSUBSTITUTE COUNTABLE NOT-NOMINALIZATION
+                        COMMON-NOUN S NOUN)
+    :COMMENTS   "object"
+    :EDITOR   "BLANDC"
+    :DATE   "02/23/2019 12:51:00"
+)
+
+(LEXICAL-ITEM
+    :NAME   POT
+    :SPELLING   "pot"
+    :SAMPLE-SENTENCE   "I am covering the pot"
+    :FEATURES   (NONE-OF-THATCOMP-TYPIC NONSUBSTITUTE COUNTABLE NOT-NOMINALIZATION
+                        COMMON-NOUN S NOUN)
+    :COMMENTS   "object"
+    :EDITOR   "BLANDC"
+    :DATE   "02/23/2019 12:40:00"
 )
 
 (LEXICAL-ITEM
@@ -96,7 +129,7 @@
                    (FIRSTSINGULARFORM "set")
                    (THIRDSINGULARFORM "sets"))
     :EDITOR   "BLANDC"
-    :DATE   "02/15/2018 16:14:14"
+    :DATE   "02/15/2019 16:14:14"
     :SEMANTICS (NIL)
 )
 
@@ -108,7 +141,7 @@
                         COMMON-NOUN S NOUN)
     :COMMENTS   "object"
     :EDITOR   "BLANDC"
-    :DATE   "02/15/2018 16:42:00"
+    :DATE   "02/15/2019 16:42:00"
 )
 
 (LEXICAL-ITEM
@@ -119,6 +152,6 @@
                         COMMON-NOUN S NOUN)
     :COMMENTS   "object"
     :EDITOR   "BLANDC"
-    :DATE   "02/15/2018 16:10:00"
+    :DATE   "02/15/2019 16:10:00"
 )
 
