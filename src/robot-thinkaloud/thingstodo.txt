@@ -11,7 +11,7 @@ notes: all ok
 COVER-POT-CbR:
 I am covering the pot with the plate, because I do not have a lid.
 {doing CURRENT} because {state FACT}
-notes: generating "I am covering the pot with the plate, because of having lid."
+notes: all ok
 
 SET-TABLE-DOING-PICK-UP:
 I am picking up the spoon.
@@ -36,7 +36,7 @@ notes: all ok
 SET-TABLE-WILL-EAT:
 We will eat lunch.
 {will do ENABLED}
-notes: generating all ok
+notes: all ok
 
 SET-TABLE-CstT:
 I am picking up the spoon so that I can set the table.
@@ -51,7 +51,7 @@ notes: all ok
 SET-TABLE-TstE:
 I am setting the table so that we can eat lunch.
 {doing TOP} so that {can ENABLED}
-notes: generating "I am setting the table in order to be eating lunch."
+notes: all ok
 
 SET-TABLE-TtC:
 I am setting the table therefore I am picking up the spoon.
@@ -61,7 +61,7 @@ notes: generating "huh?"
 SET-TABLE-CbTstE:
 I am picking up the spoon because I'm setting the table so that we can eat lunch.
 {doing CURRENT} because {doing TOP} so that {can ENABLED}
-notes: generating "I am picking up the spoon because I'm setting the table in order to be eating lunch."
+notes: all ok
 
 (not attempted yet)
 I am picking up the spoon so that I can set the table because we will eat lunch.
@@ -83,10 +83,11 @@ We will eat lunch, therefore I am setting the table, therefore I am picking up t
 LEX additions needed:
 breakfast
 dinner
+lid
 lunch
 pick-up
+pot
 set-verb
 spoon
 table
-
 

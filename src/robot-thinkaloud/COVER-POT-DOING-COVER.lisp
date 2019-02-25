@@ -15,9 +15,7 @@
                 (POT / |Object| 
                     :LEX POT
                     :DETERMINER THE)
-            :accompaniment-q accompaniment 
-            :accompaniment-id
+            :|instrumental|
                 (PLATE / |Object|
                     :LEX PLATE
-                    :DETERMINER THE
-                    :participation-q participation)))
+                    :DETERMINER THE)))

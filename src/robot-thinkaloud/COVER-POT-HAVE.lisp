@@ -8,15 +8,12 @@
     :LOGICALFORM
         (HAVE / |Ownership|
             :LEX HAVE
-            ;:PROPOSAL-Q NOTPROPOSAL
+            :purpose-relation-q notpurpose
+            :polarity-value-q negative
+            :tense present
             :circumstance-q circumstance
-            :location-q nonlocation
-            :conditional-relation-q notcondition 
-            :concessive-relation-q notconcession
-            :causal-relation-q causalrelation
-            :POLARITY-VALUE-Q NEGATIVE
-            :|domain| SPEAKER
+            :|domain| speaker
             :|range|
-                (WARRANTY / |Object|
-                    :LEX LID
-                    :DETERMINER ZERO)))
+                (LID / |Object|
+                    :LEX LID)))
+

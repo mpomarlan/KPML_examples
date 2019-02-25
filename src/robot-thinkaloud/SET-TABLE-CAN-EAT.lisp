@@ -8,22 +8,19 @@
     :LOGICALFORM   
         (EAT / |DispositiveMaterialAction|
             :LEX EAT
+            :tense present
+            :|ModalPropertyAscription|
+                (MOD / ABILITY)
             :circumstance-q circumstance
-            :location-q nonlocation
-            :conditional-relation-q notcondition 
-            :concessive-relation-q notconcession
             :causal-relation-q causalrelation
-            :purpose-relation-q purpose
+            :purpose-relation-q (rst2) purpose
             :circumstance-q circumstance
             :ability-q ability
-            :|ModalPropertyAscription|
-                (MOD / (CONDITIONAL ABILITY))
             :|actor|
                 (SPEAKER / |Person|
-                    :PRONOUN WE
                     :number plural)
             :|actee|
-                (LUNCH / |GUMThing| 
+                (LUNCH / |Object| 
                     :LEX LUNCH
                     :identifiability-q notidentifiable
                     :determiner zero)))

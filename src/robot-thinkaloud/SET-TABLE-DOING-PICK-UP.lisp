@@ -10,7 +10,9 @@
             :LEX PICK-UP
             :tense present-continuous
             :causal-relation-q causalrelation
-            :|actor| speaker
+            :|actor|
+                (SPEAKER / |Person|
+                    :number singular)
             :|actee|
                 (TABLE / |Object| 
                     :LEX SPOON

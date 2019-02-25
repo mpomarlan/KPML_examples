@@ -6,20 +6,16 @@
     :GENERATEDFORM   "I am setting the table, in order to be eating lunch ."
     :TARGETFORM   "I am setting the table, so that we can eat lunch."
     :LOGICALFORM   
-        (RST / |uio#RSTPurpose|
+        (RST2 / |uio#RSTPurpose|
             :exist-speech-act-q speechact
+            :purpose-relation-q (rst) notpurpose
             :statement-q statement
             :elaboration-q distinct
             :conditioning-q conditioning
-            :manner-condition-q nonmannercondition
             :cause-condition-q causecondition
 
             :circumstance-q circumstance
-            :location-q nonlocation
-            :conditional-relation-q notcondition 
-            :concessive-relation-q notconcession
             :causal-relation-q causalrelation
-            ;:purpose-relation-q purpose
 
             :|domain|
                 ?SET-TABLE-DOING-SET

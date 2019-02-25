@@ -11,7 +11,6 @@
             :statement-q statement
             :elaboration-q distinct
             :conditioning-q conditioning
-            :manner-condition-q nonmannercondition
             :cause-condition-q causecondition 
             :|domain|
                 ?SET-TABLE-DOING-PICK-UP

@@ -10,12 +10,10 @@
             :LEX SET-VERB
             :tense present-continuous
             :circumstance-q circumstance
-            :location-q nonlocation
-            :conditional-relation-q notcondition 
-            :concessive-relation-q notconcession
             :causal-relation-q causalrelation
-            ;:purpose-relation-q purpose
-            :|actor| speaker
+            :|actor|
+                (SPEAKER / |Person|
+                    :number singular)
             :|actee|
                 (TABLE / |Object| 
                     :LEX TABLE
