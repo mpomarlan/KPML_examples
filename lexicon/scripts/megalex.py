@@ -4,6 +4,14 @@ import json
 
 # TODO: some lexicon entry keys will be tuples. These are to be understood as sets, so need to test for their presence differently.
 
+def safelyAccessFirstString(repo, key, default=""):
+    retq = default
+    if key in repo:
+        retq = repo[key]
+        if isinstance(retq, list):
+            retq = retq[0]
+    return retq
+
 def loadMegaLexicon(fileName):
     megalexicon = {}
     lexentries = []

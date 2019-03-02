@@ -4,6 +4,7 @@ import sys
 import ast
 
 import megalex
+from megalex import safelyAccessFirstString
 
 import datetime
 
@@ -13,14 +14,6 @@ if 3 > len(sys.argv):
 
 outfilePath = sys.argv[2]
 infilePath = sys.argv[1]
-
-def safelyAccessFirstString(repo, key, default=""):
-    retq = default
-    if key in repo:
-        retq = repo[key]
-        if isinstance(retq, list):
-            retq = retq[0]
-    return retq
 
 def adverb2Features(entry):
     spelling = safelyAccessFirstString(entry[1], 'positive')
