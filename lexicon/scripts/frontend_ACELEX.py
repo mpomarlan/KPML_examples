@@ -90,7 +90,7 @@ def addACEPredicate(megalexicon, predicate):
         megalexicon = megalex.mergeMegaLexicons(megalexicon, {lemma: {'transitive': 'no', ('singular', 'third'): args[0].replace('-', ' ')}})
     if ('iv_infpl', 2) == (predicate, num):
         lemma = (args[1], 'VERB', 'ITR')
-        megalexicon = megalex.mergeMegaLexicons(megalexicon, {lemma: {'transitive': 'no', ('infinitive'): args[0].replace('-', ' ')}})
+        megalexicon = megalex.mergeMegaLexicons(megalexicon, {lemma: {'transitive': 'no', ('infinitive',): args[0].replace('-', ' ')}})
     if ('tv_finsg', 2) == (predicate, num):
         lemma = (args[1], 'VERB', 'TR')
         megalexicon = megalex.mergeMegaLexicons(megalexicon, {lemma: {'transitive': 'yes', ('singular', 'third'): args[0].replace('-', ' ')}})
@@ -120,6 +120,9 @@ def loadACELexicon(infilePath):
     carryover = ""
     for line in lines:
         line = line.strip()
+        comm = line.rfind("%")
+        if -1 != comm:
+            line = line[:comm]
         if ("" == line) or ("%" == line[0]):
             continue
         line = (carryover + ' ' + line).lstrip()
