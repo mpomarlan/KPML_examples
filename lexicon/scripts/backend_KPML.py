@@ -142,12 +142,17 @@ def preposition2Features(entry):
 
 def verb2Features(entry):
     # ES-ED S-*ED S-ED S-D *-IRR S-IRR ES-IRR
-    # TODO: add present-participle and past-form
+    # TODO: add present-participle (INGPARTICIPLEFORM) and past-form (PASTFORM)
     spelling = safelyAccessFirstString(entry[1], ('infinitive',))
     if "" == spelling:
         spelling = entry[0][0]
     thirdSingular = safelyAccessFirstString(entry[1], ('singular', 'third'), None)
     pastParticiple = safelyAccessFirstString(entry[1], ('pp',), None)
+    pastForm = safelyAccessFirstString(entry[1], ('past',), None)
+    ingForm = safelyAccessFirstString(entry[1], ('presentp'), None)
+    if not pastForm:
+        pastForm = pastParticiple
+    isIngIrr = False
     features = "(VERB "
     forms = "("
     is3S = False
@@ -167,20 +172,34 @@ def verb2Features(entry):
     isPPIrr = False
     if pastParticiple and (spelling + 'd' == pastParticiple):
         isPPD = True
+        if ingForm and (spelling[:-1] + 'ing' != ingForm):
+            isIngIrr = True
     if pastParticiple and (spelling + 'ed' == pastParticiple):
         isPPED = True
+        if ingForm and (spelling + 'ing' != ingForm):
+            isIngIrr = True
     if pastParticiple and (spelling + spelling[-1] + 'ed' == pastParticiple):
         isPPSED = True
+        if ingForm and (spelling + spelling[-1] + 'ing' != ingForm):
+            isIngIrr = True
     if pastParticiple and (not isPPD) and (not isPPED) and (not isPPSED):
         isPPIrr = True
+        if ingForm:
+            isIngIrr = True
     if (not isPPD) and (not isPPED) and (not isPPSED) and (not isPPIrr):
         isPPED = True
+        if ingForm and (spelling + 'ing' != ingForm):
+            isIngIrr = True
+
+    if ingForm and isIngIrr:
+        features += "INGPARTICIPLEFORM "
+        forms += "(INGPARTICIPLEFORM \"%s\")" % (ingForm,)    
     if is3Irr:
         features += "THIRDSINGULARFORM "
         forms += "(THIRDSINGULARFORM \"%s\")" % (thirdSingular,)
     if isPPIrr:
-        features += "EDPASTFORM "
-        forms += "(EDPASTFORM \"%s\")" % (pastParticiple,)
+        features += "EDPASTFORM PASTFORM"
+        forms += "(EDPASTFORM \"%s\") (PASTFORM \"%s\")" % (pastParticiple, pastForm)
     if is3ES and isPPED:
         features += "ES-ED "
     if is3S and isPPSED:

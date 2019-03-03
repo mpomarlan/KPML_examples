@@ -12,6 +12,14 @@ def safelyAccessFirstString(repo, key, default=""):
             retq = retq[0]
     return retq
 
+def safelyAccessStrings(repo, key):
+    if key in repo:
+        retq = repo[key]
+        if not isinstance(retq, list):
+            retq = [retq]
+        return retq
+    return []
+
 def loadMegaLexicon(fileName):
     megalexicon = {}
     lexentries = []

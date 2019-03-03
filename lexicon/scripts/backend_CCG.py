@@ -4,7 +4,7 @@ import sys
 import ast
 
 import megalex
-from megalex import safelyAccessFirstString
+from megalex import safelyAccessFirstString, safelyAccessStrings
 
 import datetime
 
@@ -34,15 +34,15 @@ def possessiveForm(spelling):
 def properNounMorphs(entry):
     morphs = []
     name = lemma2ClassName(entry[0])
-    singular = safelyAccessFirstString(entry[1], ('singular',), None)
-    plural = safelyAccessFirstString(entry[1], ('plural',), None)
-    if singular:
+    singulars = safelyAccessStrings(entry[1], ('singular',))
+    plurals = safelyAccessStrings(entry[1], ('plural',))
+    for singular in singulars:
         morphs.append("<entry pos=\"NP\" word=\"%s\" class=\"%s\" macros=\"@num.sg\"/>" % (singular, name))
         morphs.append("<entry pos=\"NP.possessive\" word=\"%s\" stem=\"%s\" class=\"%s\" macros=\"@num.sg @case.gen\"/>" % (possessiveForm(singular), singular, name))
-    if plural:
-        if singular:
-            morphs.append("<entry pos=\"NP\" word=\"%s\" stem=\"%s\" class=\"%s\" macros=\"@num.pl\"/>" % (plural, singular, name))
-            morphs.append("<entry pos=\"NP.possessive\" word=\"%s\" stem=\"%s\" class=\"%s\" macros=\"@num.pl @case.gen\"/>" % (possessiveForm(plural), singular, name))
+    for plural in plurals:
+        if singulars:
+            morphs.append("<entry pos=\"NP\" word=\"%s\" stem=\"%s\" class=\"%s\" macros=\"@num.pl\"/>" % (plural, singulars[0], name))
+            morphs.append("<entry pos=\"NP.possessive\" word=\"%s\" stem=\"%s\" class=\"%s\" macros=\"@num.pl @case.gen\"/>" % (possessiveForm(plural), singulars[0], name))
         else:
             morphs.append("<entry pos=\"NP\" word=\"%s\" class=\"%s\" macros=\"@num.pl\"/>" % (plural, name))
             morphs.append("<entry pos=\"NP.possessive\" word=\"%s\" class=\"%s\" macros=\"@num.pl @case.gen\"/>" % (possessiveForm(plural), name))
@@ -51,15 +51,15 @@ def properNounMorphs(entry):
 def countableNounMorphs(entry):
     morphs = []
     name = lemma2ClassName(entry[0])
-    singular = safelyAccessFirstString(entry[1], ('singular',), None)
-    plural = safelyAccessFirstString(entry[1], ('plural',), None)
-    if singular:
+    singulars = safelyAccessStrings(entry[1], ('singular',))
+    plurals = safelyAccessStrings(entry[1], ('plural',))
+    for singular in singulars:
         morphs.append("<entry pos=\"N\" word=\"%s\" class=\"%s\" macros=\"@num.sg @pers.3rd\"/>" % (singular, name))
         morphs.append("<entry pos=\"N.possessive\" word=\"%s\" stem=\"%s\" class=\"%s\" macros=\"@num.sg @pers.3rd @case.gen\"/>" % (possessiveForm(singular), singular, name))
-    if plural:
-        if singular:
-            morphs.append("<entry pos=\"N\" word=\"%s\" stem=\"%s\" class=\"%s\" macros=\"@num.pl @pers.3rd\"/>" % (plural, singular, name))
-            morphs.append("<entry pos=\"N.possessive\" word=\"%s\" stem=\"%s\" class=\"%s\" macros=\"@num.pl @pers.3rd @case.gen\"/>" % (possessiveForm(plural), singular, name))
+    for plural in plurals:
+        if singulars:
+            morphs.append("<entry pos=\"N\" word=\"%s\" stem=\"%s\" class=\"%s\" macros=\"@num.pl @pers.3rd\"/>" % (plural, singulars[0], name))
+            morphs.append("<entry pos=\"N.possessive\" word=\"%s\" stem=\"%s\" class=\"%s\" macros=\"@num.pl @pers.3rd @case.gen\"/>" % (possessiveForm(plural), singulars[0], name))
         else:
             morphs.append("<entry pos=\"N\" word=\"%s\" class=\"%s\" macros=\"@num.pl @pers.3rd\"/>" % (plural, name))
             morphs.append("<entry pos=\"N.possessive\" word=\"%s\" class=\"%s\" macros=\"@num.pl @pers.3rd @case.gen\"/>" % (possessiveForm(plural), name))
@@ -68,15 +68,15 @@ def countableNounMorphs(entry):
 def uncountableNounMorphs(entry):
     morphs = []
     name = lemma2ClassName(entry[0])
-    singular = safelyAccessFirstString(entry[1], ('ietsial',), None)
-    plural = safelyAccessFirstString(entry[1], ('plural',), None)
-    if singular:
+    singulars = safelyAccessStrings(entry[1], ('ietsial',))
+    plurals = safelyAccessStrings(entry[1], ('plural',))
+    for singular in singulars:
         morphs.append("<entry pos=\"N\" word=\"%s\" class=\"%s\" macros=\"@num.sg @pers.3rd\"/>" % (singular, name))
         morphs.append("<entry pos=\"N.possessive\" word=\"%s\" stem=\"%s\" class=\"%s\" macros=\"@num.sg @pers.3rd @case.gen\"/>" % (possessiveForm(singular), singular, name))
-    if plural:
-        if singular:
-            morphs.append("<entry pos=\"N\" word=\"%s\" stem=\"%s\" class=\"%s\" macros=\"@num.pl @pers.3rd\"/>" % (plural, singular, name))
-            morphs.append("<entry pos=\"N.possessive\" word=\"%s\" stem=\"%s\" class=\"%s\" macros=\"@num.pl @pers.3rd @case.gen\"/>" % (possessiveForm(plural), singular, name))
+    for plural in plurals:
+        if singulars:
+            morphs.append("<entry pos=\"N\" word=\"%s\" stem=\"%s\" class=\"%s\" macros=\"@num.pl @pers.3rd\"/>" % (plural, singulars[0], name))
+            morphs.append("<entry pos=\"N.possessive\" word=\"%s\" stem=\"%s\" class=\"%s\" macros=\"@num.pl @pers.3rd @case.gen\"/>" % (possessiveForm(plural), singulars[0], name))
         else:
             morphs.append("<entry pos=\"N\" word=\"%s\" class=\"%s\" macros=\"@num.pl @pers.3rd\"/>" % (plural, name))
             morphs.append("<entry pos=\"N.possessive\" word=\"%s\" class=\"%s\" macros=\"@num.pl @pers.3rd @case.gen\"/>" % (possessiveForm(plural), name))
@@ -85,15 +85,15 @@ def uncountableNounMorphs(entry):
 def measureUnitMorphs(entry):
     morphs = []
     name = lemma2ClassName(entry[0])
-    singular = safelyAccessFirstString(entry[1], ('singular',), None)
-    plural = safelyAccessFirstString(entry[1], ('plural',), None)
-    if singular:
+    singulars = safelyAccessStrings(entry[1], ('singular',))
+    plurals = safelyAccessStrings(entry[1], ('plural',))
+    for singular in singulars:
         morphs.append("<entry pos=\"N.unit\" word=\"%s\" class=\"%s\" />" % (singular, name))
         morphs.append("<entry pos=\"N.possessive\" word=\"%s\" stem=\"%s\" class=\"%s\" macros=\"@case.gen\"/>" % (possessiveForm(singular), singular, name))
-    if plural:
-        if singular:
-            morphs.append("<entry pos=\"N.unit\" word=\"%s\" stem=\"%s\" class=\"%s\" />" % (plural, singular, name))
-            morphs.append("<entry pos=\"N.possessive\" word=\"%s\" stem=\"%s\" class=\"%s\" macros=\"@case.gen\"/>" % (possessiveForm(plural), singular, name))
+    for plural in plurals:
+        if singulars:
+            morphs.append("<entry pos=\"N.unit\" word=\"%s\" stem=\"%s\" class=\"%s\" />" % (plural, singulars[0], name))
+            morphs.append("<entry pos=\"N.possessive\" word=\"%s\" stem=\"%s\" class=\"%s\" macros=\"@case.gen\"/>" % (possessiveForm(plural), singulars[0], name))
         else:
             morphs.append("<entry pos=\"N.unit\" word=\"%s\" class=\"%s\" />" % (plural, name))
             morphs.append("<entry pos=\"N.possessive\" word=\"%s\" class=\"%s\" macros=\"@case.gen\"/>" % (possessiveForm(plural), name))
