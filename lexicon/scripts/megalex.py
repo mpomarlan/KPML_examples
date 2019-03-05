@@ -61,10 +61,11 @@ def mergeLexiconEntryForm(accumulatingForm, form, lemma, feature, logFile=None):
 
 def mergeLexiconEntries(accumulatingEntry, entry, lemma, logFile=None):
     for k, v in entry.items():
-        if k not in accumulatingEntry:
-            accumulatingEntry[k] = v
-            if logFile:
-                logFile.write("LOG: ADDFEATURE: addition to %s, form/feature %s\n" % (str(lemma), str(k)))
+        if (k not in accumulatingEntry):
+            if v:
+                accumulatingEntry[k] = v
+                if logFile:
+                    logFile.write("LOG: ADDFEATURE: addition to %s, form/feature %s\n" % (str(lemma), str(k)))
         else:
             accumulatingEntry[k] = mergeLexiconEntryForm(accumulatingEntry[k], v, lemma, k, logFile)
     return accumulatingEntry
@@ -84,7 +85,7 @@ def mergeMegaLexicons(accumulatingLexicon, lexicon, logFile=None):
 def storeMegaLexicon(fileName, megalexicon):
     with open(fileName, "w") as outfile:
         megalist = list(megalexicon.items())
-        megalist.sort(key=lambda x: x[0][0])
+        megalist.sort(key=lambda x: str(x[0]))
         for entry in megalist:
             outfile.write("%s\n" % str((entry[0], entry[1])))
 

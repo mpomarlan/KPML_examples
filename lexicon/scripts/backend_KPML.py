@@ -147,9 +147,9 @@ def verb2Features(entry):
     if "" == spelling:
         spelling = entry[0][0]
     thirdSingular = safelyAccessFirstString(entry[1], ('singular', 'third'), None)
-    pastParticiple = safelyAccessFirstString(entry[1], ('pp',), None)
+    pastParticiple = safelyAccessFirstString(entry[1], ('pastp',), None)
     pastForm = safelyAccessFirstString(entry[1], ('past',), None)
-    ingForm = safelyAccessFirstString(entry[1], ('presentp'), None)
+    ingForm = safelyAccessFirstString(entry[1], ('presentp',), None)
     if not pastForm:
         pastForm = pastParticiple
     isIngIrr = False

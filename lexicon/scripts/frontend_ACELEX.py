@@ -99,7 +99,7 @@ def addACEPredicate(megalexicon, predicate):
         megalexicon = megalex.mergeMegaLexicons(megalexicon, {lemma: {'transitive': 'yes', ('infinitive',): args[0].replace('-', ' ')}})
     if ('tv_pp', 2) == (predicate, num):
         lemma = (args[1], 'VERB', 'TR')
-        megalexicon = megalex.mergeMegaLexicons(megalexicon, {lemma: {'transitive': 'yes', ('pp',): args[0].replace('-', ' ')}})
+        megalexicon = megalex.mergeMegaLexicons(megalexicon, {lemma: {'transitive': 'yes', ('pastp',): args[0].replace('-', ' ')}})
     if ('dv_finsg', 2) == (predicate, num):
         lemma = (args[1], 'VERB', 'DTR')
         megalexicon = megalex.mergeMegaLexicons(megalexicon, {lemma: {'transitive': 'di', ('singular', 'third'): args[0].replace('-', ' ')}})
@@ -108,7 +108,7 @@ def addACEPredicate(megalexicon, predicate):
         megalexicon = megalex.mergeMegaLexicons(megalexicon, {lemma: {'transitive': 'di', ('infinitive',): args[0].replace('-', ' ')}})
     if ('dv_pp', 2) == (predicate, num):
         lemma = (args[1], 'VERB', 'DTR')
-        megalexicon = megalex.mergeMegaLexicons(megalexicon, {lemma: {'transitive': 'di', ('pp',): args[0].replace('-', ' ')}})
+        megalexicon = megalex.mergeMegaLexicons(megalexicon, {lemma: {'transitive': 'di', ('pastp',): args[0].replace('-', ' ')}})
     if ('prep', 2) == (predicate, num):
         lemma = (args[1], 'PREP')
         megalexicon = megalex.mergeMegaLexicons(megalexicon, {lemma: {('prep',): args[0]}})
