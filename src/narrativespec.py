@@ -90,17 +90,17 @@ def _sanityCheckTensePolarityModality(tense, polarity, modality):
 def becauseReason(event=None, reason=None, polarity='positive', tense='present', **ignore):
     tense, polarity, _ = _sanityCheckTensePolarityModality(tense,polarity,None)
     idstr = hashlib.md5(str((polarity, tense, event, reason)).encode('utf-8')).hexdigest()
-    return "(RST_{idstr} / |uio#RSTMotivation| :exist-speech-act-q speechact :conditioning-q conditioning :cause-condition-q causecondition :causal-relation-q causalrelation :polarity-value-q {polarity} :tense {tense} :circumstance-q circumstance :|domain| {event} :|range| {reason})".format(idstr=idstr, polarity=polarity, tense=tense, event=event, reason=reason)
+    return "(RST_{idstr} / |uio#RSTMotivation| :exist-speech-act-q speechact :conditioning-q conditioning :cause-condition-q causecondition :causal-relation-q causalrelation :polarity-value-q {polarity} :tense {tense} :|domain| {event} :|range| {reason})".format(idstr=idstr, polarity=polarity, tense=tense, event=event, reason=reason)
 
 def soThatPurpose(event=None, purpose=None, polarity='positive', tense='present', **ignore):
     tense, polarity, _ = _sanityCheckTensePolarityModality(tense,polarity,None)
     idstr = hashlib.md5(str((polarity, tense, event, purpose)).encode('utf-8')).hexdigest()
-    return "(RST_{idstr} / |uio#RSTPurpose| :exist-speech-act-q speechact :statement-q statement :conditioning-q conditioning :purpose-relation-q purpose :purpose-condition-q purposecondition :cause-condition-q causecondition :causal-relation-q causalrelation :polarity-value-q {polarity} :tense {tense} :circumstance-q circumstance :|domain| {event} :|range| {purpose})".format(idstr=idstr, polarity=polarity, tense=tense, event=event, purpose=purpose)
+    return "(RST_{idstr} / |uio#RSTPurpose| :exist-speech-act-q speechact :statement-q statement :conditioning-q conditioning :purpose-relation-q purpose :purpose-condition-q purposecondition :cause-condition-q causecondition :causal-relation-q causalrelation :polarity-value-q {polarity} :tense {tense} :|domain| {event} :|range| {purpose})".format(idstr=idstr, polarity=polarity, tense=tense, event=event, purpose=purpose)
 
 def despiteOpposition(event=None, opposition=None, polarity='positive', tense='present', **ignore):
     tense, polarity, _ = _sanityCheckTensePolarityModality(tense,polarity,None)
     idstr = hashlib.md5(str((polarity, tense, event, opposition)).encode('utf-8')).hexdigest()
-    return "(RST_{idstr} / |uio#RSTConcessive| :exist-speech-act-q speechact :statement-q statement :conditioning-q conditioning :concessive-relation-q concession :concessive-condition-q concessive :polarity-value-q {polarity} :tense {tense} :FORMALITY-Q FORMAL :LEGALISTIC-Q NONLEGALISTIC :circumstance-q circumstance :|domain| {event} :|range| {opposition})".format(idstr=idstr, polarity=polarity, tense=tense, event=event, opposition=opposition)
+    return "(RST_{idstr} / |uio#RSTConcessive| :exist-speech-act-q speechact :statement-q statement :conditioning-q conditioning :concessive-relation-q concession :concessive-condition-q concessive :polarity-value-q {polarity} :tense {tense} :FORMALITY-Q FORMAL :LEGALISTIC-Q NONLEGALISTIC :|domain| {event} :|range| {opposition})".format(idstr=idstr, polarity=polarity, tense=tense, event=event, opposition=opposition)
 
 def dmActing(lexEntry=None, actor=None, actee=None, instrument=None, opposition=None, modality=None, polarity='positive', tense='present', **ignore):
     if None == lexEntry:
@@ -116,7 +116,7 @@ def dmActing(lexEntry=None, actor=None, actee=None, instrument=None, opposition=
     for r, s in [(actor, ":|actor| " + str(actor)), (actee, ":|actee| " + str(actee)), (instrument, ":|instrumental| " + str(instrument)), (opposition, ":|concessive| " + str(opposition)), (modality, ":|ModalPropertyAscription| (MOD_%s / nonability) %s :modality-polarity %s" % (idstr, str(modalities[modality]), polarity))]:
         if None != r:
             roles = roles + ' ' + s
-    return "(DMA_{idstr} / |DispositiveMaterialAction| :LEX {lexEntry} :tense {tense} :polarity-value-q {polarity} :circumstance-q circumstance {roles})".format(idstr=idstr,lexEntry=lexEntry, tense=tense, polarity=polarity, roles=roles)
+    return "(DMA_{idstr} / |DispositiveMaterialAction| :LEX {lexEntry} :tense {tense} :polarity-value-q {polarity} {roles})".format(idstr=idstr,lexEntry=lexEntry, tense=tense, polarity=polarity, roles=roles)
 
 def ownershipAscription(owner=None, item=None, opposition=None, modality=None, polarity='positive', tense='present', **dontUse):
     tense, polarity, modality = _sanityCheckTensePolarityModality(tense,polarity,modality)
@@ -128,7 +128,7 @@ def ownershipAscription(owner=None, item=None, opposition=None, modality=None, p
     for r, s in [(owner, ":|domain| " + str(owner)), (item, ":|range| " + str(item)), (opposition, ":|concessive| " + str(opposition)), (modality, ":|ModalPropertyAscription| (MOD_%s / nonability) %s :modality-polarity %s" % (idstr, str(modalities[modality]), polarity))]:
         if None != r:
             roles = roles + ' ' + s
-    return "(HAVE_{idstr} / |Ownership| :LEX HAVE :polarity-value-q {polarity} :tense {tense} :circumstance-q circumstance {roles})".format(idstr=idstr, roles=roles, polarity=polarity, tense=tense)
+    return "(HAVE_{idstr} / |Ownership| :LEX HAVE :polarity-value-q {polarity} :tense {tense} {roles})".format(idstr=idstr, roles=roles, polarity=polarity, tense=tense)
 
 def naDirectMotionTo(lexEntry=None, actor=None, destination=None, opposition=None, modality=None, polarity='positive', tense='present-continuous', **dontUse):
     tense, polarity, modality = _sanityCheckTensePolarityModality(tense,polarity,modality)
@@ -142,7 +142,7 @@ def naDirectMotionTo(lexEntry=None, actor=None, destination=None, opposition=Non
     for r, s in [(actor, ":|gum#actor| " + str(actor)), (destination, ":|space#direction| (L1_{idstr} / |space#GeneralizedRoute| :spatio-temporal-type-q spatial :source-destination-process-q sourcedestination :|space#relatum| {destination})".format(idstr=idstr, destination=str(destination))), (opposition, ":|concessive| " + str(opposition)), (modality, ":|ModalPropertyAscription| (MOD_%s / nonability) %s :modality-polarity %s" % (idstr, str(modalities[modality]), polarity))]:
         if None != r:
             roles = roles + ' ' + s
-    return "(GO_{idstr} / |space#NonAffectingDirectedMotion| :LEX {lexEntry} :TENSE {tense} :polarity-value-q {polarity} :circumstance-q circumstance {roles})".format(idstr=idstr, lexEntry=lexEntry, polarity=polarity, tense=tense, roles=roles)
+    return "(GO_{idstr} / |space#NonAffectingDirectedMotion| :LEX {lexEntry} :TENSE {tense} :polarity-value-q {polarity} {roles})".format(idstr=idstr, lexEntry=lexEntry, polarity=polarity, tense=tense, roles=roles)
 
 
 def objectDescription(lexEntry=None, determiner=None, number=None, identifiability=None, materialProps=None, ageProps=None, provenanceProps=None, sizeProps=None, colorProps=None, logicalProps=None, useProps=None, miscProps=None, modalProps=None, **dontUse):
