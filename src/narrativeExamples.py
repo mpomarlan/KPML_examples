@@ -43,11 +43,29 @@ bobHasNewSpoonAliceEatsLunchSoThatBobCanGoToLake = bobHasNewSpoon + aliceEatsLun
 # Alice eats lunch with the small old red spoon so that Bob can have the new spoon
 aliceEatsLunchWithSpoonSoThatBobCanHaveNewSpoon = aliceEatsLunchWithSpoon + bobHasNewSpoon + [('isMotivatedBy', 'e', 'h'), ('hasModality', 'h', 'can')]
 
+aliceAndBobEatLunchAndDinner = aliceEatsLunch + [('hasAgent', 'e', 'bob'), ('hasPatient', 'e', 'dinner'), ('hasLex', 'bob', 'bob'), ('hasDeterminer','bob','zero'), ('hasLex', 'dinner', 'dinner'), ('hasDeterminer','dinner','zero')]
 
-for expected, narrspec in [('the small old red spoon', theSmallOldRedSpoon), ('Alice eats lunch.', aliceEatsLunch), ('Alice eats lunch with the small old red spoon.', aliceEatsLunchWithSpoon), ('Alice eats lunch with the small old red spoon despite the big bad wolf.', aliceEatsLunchWithSpoonDespiteWolf), ('Bob has the new spoon.', bobHasNewSpoon), ('Bob can go to the lake.', bobCanGoToLake), ('Alice eats lunch with the small old red spoon because Bob has the new spoon.', aliceEatsLunchWithSpoonBecauseBobHasNewSpoon), ('Alice eats lunch with the small old red spoon though Bob has the new spoon.', aliceEatsLunchWithSpoonThoughBobHasNewSpoon), ('Alice eats lunch so that Bob can go to the lake.', aliceEatsLunchSoThatBobCanGoToLake), ('Bob has the new spoon. Alice eats lunch so that Bob can go to the lake.', bobHasNewSpoonAliceEatsLunchSoThatBobCanGoToLake), ('Alice eats lunch with the small old red spoon so that Bob can have the new spoon.', aliceEatsLunchWithSpoonSoThatBobCanHaveNewSpoon)]:
-    print('--------')
-    print("EXPECTED: %s" % expected)
-    outputs = getKPMLOutputFromNarrative(narrspec)
-    print('ACTUAL: %s' % ' '.join(outputs))
-    print('')
+bobHasAlicesSpoon = [('construedAs', 'h', 'ownership'), ('hasOwner', 'h', 'bob'), ('hasItem', 'h', 'spoon'), ('isOwnedBy', 'spoon', 'alice'), ('hasLex', 'bob', 'bob'), ('hasDeterminer', 'bob', 'zero'), ('hasLex', 'spoon', 'spoon'), ('hasLex', 'alice', 'alice'), ('hasDeterminer', 'alice', 'zero'), ('hasTense', 'h', 'present')]
+
+aliceEatsLunchByChewing = aliceEatsLunch + [('hasEnablement', 'e','chewing'), ('hasLex', 'chewing', 'chewing'), ('hasDeterminer', 'chewing', 'zero')]
+bobHasNewSpoonByLaw = bobHasNewSpoon + [('hasEnablement', 'h', 'law'), ('hasLex', 'law', 'law'), ('hasDeterminer', 'law', 'zero')]
+aliceAndBobCanGoToLakeByCar = bobCanGoToLake + [('hasAgent', 'g', 'alice'), ('hasEnablement', 'g', 'car'), ('hasLex', 'alice', 'alice'), ('hasDeterminer', 'alice', 'zero'), ('hasLex', 'car', 'car'), ('hasDeterminer', 'car', 'zero')]
+
+aliceTakesBobsSpoon = [('construedAs', 't', 'action'), ('hasAgent', 't', 'alice'), ('hasPatient', 't', 'spoon'), ('isOwnedBy', 'spoon', 'bob'), ('hasLex', 't', 'take'), ('hasTense', 't', 'present'), ('hasLex', 'alice', 'alice'), ('hasLex', 'bob', 'bob'), ('hasLex', 'spoon', 'spoon'), ('hasDeterminer', 'alice', 'zero'), ('hasDeterminer', 'bob', 'zero')]
+
+alicesBrotherBob = [('isOwnedBy', 'brother', 'alice'), ('hasElaboration', 'brother', 'bob'), ('hasLex', 'alice', 'alice'), ('hasLex', 'bob', 'bob'), ('hasLex', 'brother', 'brother'), ('hasDeterminer', 'alice', 'zero'), ('hasDeterminer', 'bob', 'zero')]
+
+alicesBrothersBobAndCharlie = [('isOwnedBy', 'brother', 'alice'), ('hasElaboration', 'brother', 'bob'), ('hasElaboration', 'brother', 'charlie'), ('hasLex', 'alice', 'alice'), ('hasLex', 'bob', 'bob'), ('hasLex', 'brother', 'brother'), ('hasLex', 'charlie', 'charlie'), ('hasDeterminer', 'alice', 'zero'), ('hasDeterminer', 'bob', 'zero'), ('hasDeterminer', 'charlie', 'zero'), ('hasNumber', 'brother', 'plural')]
+
+
+def main():
+    for expected, narrspec in [('the small old red spoon', theSmallOldRedSpoon), ('Alice eats lunch.', aliceEatsLunch), ('Alice eats lunch with the small old red spoon.', aliceEatsLunchWithSpoon), ('Alice eats lunch with the small old red spoon despite the big bad wolf.', aliceEatsLunchWithSpoonDespiteWolf), ('Bob has the new spoon.', bobHasNewSpoon), ('Bob can go to the lake.', bobCanGoToLake), ('Alice eats lunch with the small old red spoon because Bob has the new spoon.', aliceEatsLunchWithSpoonBecauseBobHasNewSpoon), ('Alice eats lunch with the small old red spoon though Bob has the new spoon.', aliceEatsLunchWithSpoonThoughBobHasNewSpoon), ('Alice eats lunch so that Bob can go to the lake.', aliceEatsLunchSoThatBobCanGoToLake), ('Bob has the new spoon. Alice eats lunch so that Bob can go to the lake.', bobHasNewSpoonAliceEatsLunchSoThatBobCanGoToLake), ('Alice eats lunch with the small old red spoon so that Bob can have the new spoon.', aliceEatsLunchWithSpoonSoThatBobCanHaveNewSpoon), ('Alice and Bob eat lunch and dinner.', aliceAndBobEatLunchAndDinner), ('Alice eats lunch by chewing.', aliceEatsLunchByChewing), ('Bob has the new spoon by law.', bobHasNewSpoonByLaw), ('Alice and Bob can go to the lake by car.', aliceAndBobCanGoToLakeByCar), ('Alice takes Bob\'s spoon.', aliceTakesBobsSpoon), ('Alice\'s brother Bob.', alicesBrotherBob), ('Alice\'s brothers Bob and Charlie', alicesBrothersBobAndCharlie)]:
+        print('--------')
+        print("EXPECTED: %s" % expected)
+        outputs = getKPMLOutputFromNarrative(narrspec)
+        print('ACTUAL: %s' % ' '.join(outputs))
+        print('')
+
+if __name__ == '__main__':
+    main()
 
