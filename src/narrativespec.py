@@ -22,7 +22,7 @@ def getKPMLOutputFromSemspec(semspec, sockobj):
 
 polarities = {'positive', 'negative'}
 numbers = {'singular', 'plural'} # TODO smarter ways to infer this?
-tenses = {'present', 'present-continuous', 'present-perfect', 'present-perfect-continuous', 'past', 'past-continuous', 'past-perfect', 'past-perfect-continuous', 'future', 'future-in-present', 'future-continuous', 'future-perfect', 'future-perfect-continuous'} # TODO: add the other tense specifiers in KPML OR use KPML's temporal-relation based tense spec
+tenses = {'purpose', 'present', 'present-continuous', 'present-perfect', 'present-perfect-continuous', 'past', 'past-continuous', 'past-perfect', 'past-perfect-continuous', 'future', 'future-in-present', 'future-continuous', 'future-perfect', 'future-perfect-continuous'} # TODO: add the other tense specifiers in KPML OR use KPML's temporal-relation based tense spec
 modalities = {None : None,
     "may": ":ability-q nonability :modality-conditionality-q modalitynonconditional :volitionality-q nonvolitional :modal-necessity-q nonnecessity",
     "must": ":ability-q nonability :modality-conditionality-q modalitynonconditional :volitionality-q nonvolitional :modal-necessity-q necessity",
@@ -34,7 +34,7 @@ modalities = {None : None,
     "could": ":ability-q ability :modality-conditionality-q modalityconditional :volitionality-q nonvolitional :modal-necessity-q nonnecessity",
 } # TODO: are there other modality flags? Should we use the modality flags in the narrative spec rather than the english modal verb?
 
-determiners = {'a', 'both', 'some', 'the', 'zero'} # TODO: are there other determiners?
+determiners = {'a', 'all', 'any', 'both', 'each', 'every', 'some', 'the', 'zero'} # TODO: are there other determiners?
 identifiabilities = {'identifiable', 'nonidentifiable'}
 qualityOntoTypes = {'|GUMThing|', '|Age|', '|SimpleQuality|', '|Size|', '|Color|', '|SimpleQuality|', '|gum#ModalQuality|'} # TODO: double check with GUM that the various property ascriptions are all covered.
 
@@ -102,50 +102,42 @@ def despiteOpposition(event=None, opposition=None, polarity='positive', tense='p
     idstr = hashlib.md5(str((polarity, tense, event, opposition)).encode('utf-8')).hexdigest()
     return "(RST_{idstr} / |uio#RSTConcessive| :exist-speech-act-q speechact :statement-q statement :conditioning-q conditioning :concessive-relation-q concession :concessive-condition-q concessive :polarity-value-q {polarity} :tense {tense} :FORMALITY-Q FORMAL :LEGALISTIC-Q NONLEGALISTIC :|domain| {event} :|range| {opposition})".format(idstr=idstr, polarity=polarity, tense=tense, event=event, opposition=opposition)
 
-def dmActing(lexEntry=None, actor=None, actee=None, instrument=None, opposition=None, enablement=None, modality=None, polarity='positive', tense='present', **ignore):
-    if None == lexEntry:
-        lexEntry = 'act'
+def eventDescription(evType, lexEntry, argMap, tense=None, polarity=None, modality=None, **args):
     tense, polarity, modality = _sanityCheckTensePolarityModality(tense,polarity,modality)
-    lexEntry = _normalizeList(lexEntry)
-    actor = _normalizeList(actor)
-    actee = _normalizeList(actee)
-    instrument = _normalizeList(instrument)
-    opposition = _normalizeList(opposition)
-    enablement = _normalizeList(enablement)
-    idstr = hashlib.md5(str((polarity, tense, lexEntry, actor, actee, instrument, opposition, modality)).encode('utf-8')).hexdigest()
+    for r in args.keys():
+        args[r] = _normalizeList(args[r])
+    idstr = hashlib.md5(str(tuple([evType, lexEntry, tense, polarity, modality] + [args[r] for r in sorted(args.keys())])).encode('utf-8')).hexdigest()
+    defaultMap = {"actee": ":|actee| %s", "actor": ":|actor| %s", "beneficiary": ":|beneficiary| %s", "destination": ":|space#direction| (DIRTO_{idstr} / |space#GeneralizedRoute| :spatio-temporal-type-q spatial :source-destination-process-q sourcedestination :|space#relatum| %s)".format(idstr=idstr), "enablement": ":|enablement| %s", "instrument": ":|instrumental| %s", "item": ":|range| %s", "manner": ":|manner| %s", "opposition": ":|concessive| %s", "owner": ":|domain| %s"}
     roles = ""
-    for r, s in [(enablement, ":|enablement| " + str(enablement)), (actor, ":|actor| " + str(actor)), (actee, ":|actee| " + str(actee)), (instrument, ":|instrumental| " + str(instrument)), (opposition, ":|concessive| " + str(opposition)), (modality, ":|ModalPropertyAscription| (MOD_%s / nonability) %s :modality-polarity %s" % (idstr, str(modalities[modality]), polarity))]:
-        if None != r:
-            roles = roles + ' ' + s
-    return "(DMA_{idstr} / |DispositiveMaterialAction| :LEX {lexEntry} :tense {tense} :polarity-value-q {polarity} {roles})".format(idstr=idstr,lexEntry=lexEntry, tense=tense, polarity=polarity, roles=roles)
+    tenseDesc = ""
+    if tense not in [None, 'purpose']:
+        tenseDesc = ":tense %s" % tense
+    modalityDesc = ""
+    if None != modality:
+        modalityDesc = ":|ModalPropertyAscription| (MOD_%s / nonability) %s :modality-polarity %s" % (idstr, str(modalities[modality]), polarity)
+    roles = ""
+    for r in sorted(args.keys()):
+        if None != args[r]:
+            strPat = ''
+            if r in argMap:
+                strPat = argMap[r]
+            elif r in defaultMap:
+                strPat = defaultMap[r]
+            if '' != strPat:
+                roles = roles + " " + (strPat % str(args[r]))
+    return "(EVT_{idstr} / {evType} :LEX {lexEntry} :polarity-value-q {polarity} {tenseDesc} {modalityDesc} {roles})".format(idstr=idstr, evType=evType, lexEntry=lexEntry, polarity=polarity, tenseDesc=tenseDesc, modalityDesc=modalityDesc, roles=roles)
 
-def ownershipAscription(owner=None, item=None, opposition=None, enablement=None, modality=None, polarity='positive', tense='present', **dontUse):
-    tense, polarity, modality = _sanityCheckTensePolarityModality(tense,polarity,modality)
-    owner = _normalizeList(owner)
-    item = _normalizeList(item)
-    opposition = _normalizeList(opposition)
-    enablement = _normalizeList(enablement)
-    idstr = hashlib.md5(str((polarity, tense, owner, item, opposition, modality)).encode('utf-8')).hexdigest()
-    roles = ""
-    for r, s in [(enablement, ":|enablement| " + str(enablement)), (owner, ":|domain| " + str(owner)), (item, ":|range| " + str(item)), (opposition, ":|concessive| " + str(opposition)), (modality, ":|ModalPropertyAscription| (MOD_%s / nonability) %s :modality-polarity %s" % (idstr, str(modalities[modality]), polarity))]:
-        if None != r:
-            roles = roles + ' ' + s
-    return "(HAVE_{idstr} / |Ownership| :LEX HAVE :polarity-value-q {polarity} :tense {tense} {roles})".format(idstr=idstr, roles=roles, polarity=polarity, tense=tense)
+def dmActing(lexEntry=None, modality=None, polarity='positive', tense='present', **args):
+    return eventDescription("|DispositiveMaterialAction|", lexEntry, {}, tense=tense, polarity=polarity, modality=modality, **args)
 
-def naDirectMotionTo(lexEntry=None, actor=None, destination=None, opposition=None, enablement=None, modality=None, polarity='positive', tense='present-continuous', **dontUse):
-    tense, polarity, modality = _sanityCheckTensePolarityModality(tense,polarity,modality)
-    lexEntry = _normalizeList(lexEntry)
-    actor = _normalizeList(actor)
-    destination = _normalizeList(destination)
-    #instrument = _normalizeList(instrument)
-    opposition = _normalizeList(opposition)
-    enablement = _normalizeList(enablement)
-    idstr = hashlib.md5(str((polarity, tense, lexEntry, actor, destination, opposition, modality)).encode('utf-8')).hexdigest()
-    roles = ""
-    for r, s in [(enablement, ":|enablement| " + str(enablement)), (actor, ":|gum#actor| " + str(actor)), (destination, ":|space#direction| (L1_{idstr} / |space#GeneralizedRoute| :spatio-temporal-type-q spatial :source-destination-process-q sourcedestination :|space#relatum| {destination})".format(idstr=idstr, destination=str(destination))), (opposition, ":|concessive| " + str(opposition)), (modality, ":|ModalPropertyAscription| (MOD_%s / nonability) %s :modality-polarity %s" % (idstr, str(modalities[modality]), polarity))]:
-        if None != r:
-            roles = roles + ' ' + s
-    return "(GO_{idstr} / |space#NonAffectingDirectedMotion| :LEX {lexEntry} :TENSE {tense} :polarity-value-q {polarity} {roles})".format(idstr=idstr, lexEntry=lexEntry, polarity=polarity, tense=tense, roles=roles)
+def creating(lexEntry=None, modality=None, polarity='positive', tense='present', **args):
+    return eventDescription("|CreativeMaterialAction|", lexEntry, {}, tense=tense, polarity=polarity, modality=modality, **args)
+
+def ownershipAscription(modality=None, polarity='positive', tense='present', **args):
+    return eventDescription("|Ownership|", "HAVE", {}, tense=tense, polarity=polarity, modality=modality, **args)
+
+def naDirectMotionTo(lexEntry=None, modality=None, polarity='positive', tense='present-continuous', **args):
+    return eventDescription("|space#NonAffectingDirectedMotion|", lexEntry, {'actor': ':|gum#actor| %s'}, tense=tense, polarity=polarity, modality=modality, **args)
 
 
 def objectDescription(lexEntry=None, determiner=None, number=None, identifiability=None, materialProps=None, ageProps=None, provenanceProps=None, sizeProps=None, colorProps=None, logicalProps=None, useProps=None, miscProps=None, modalProps=None, owner=None, elaboration=None, **dontUse):
@@ -190,12 +182,13 @@ def qualityDescription(lexEntry=None, ontoType=None, **dontUse):
     return '(ADJ_{idstr} / {ontoType} :LEX {lexEntry})'.format(idstr=idstr, ontoType=ontoType, lexEntry=lexEntry)
 
 eventRelations = {'isOpposedBy': (despiteOpposition, 'event', 'opposition'), 'isExplainedBy': (becauseReason, 'event', 'reason'), 'isMotivatedBy': (soThatPurpose, 'event', 'purpose')}
-participantRelations = {'hasAgent': ('actor',), 'hasPatient': ('actee',), 'hasInstrument': ('instrument',), 'hasOpponent': ('opposition',), 'hasDestination': ('destination',), 'hasOwner': ('owner',), 'hasItem': ('item',), 'hasEnablement': ('enablement',)}
+participantRelations = {'hasBeneficiary': ('beneficiary',), 'hasAgent': ('actor',), 'hasPatient': ('actee',), 'hasInstrument': ('instrument',), 'hasOpponent': ('opposition',), 'hasDestination': ('destination',), 'hasOwner': ('owner',), 'hasItem': ('item',), 'hasEnablement': ('enablement',)}
 eventDataRelations = {'hasLex': ('lexEntry',), 'hasPolarity': ('polarity',), 'hasTense': ('tense',), 'hasModality': ('modality',)}
+eventQualityRelations = {'hasManner': ('manner', '|SimpleQuality|')}
 qualityRelations = {'hasQuality': ('miscProps', '|SimpleQuality|'), 'hasColor': ('colorProps', '|Color|'), 'hasAge': ('ageProps', '|Age|'), 'hasSize': ('sizeProps', '|Size|'), 'hasProvenance': ('provenanceProps', '|SimpleQuality|'), 'hasLogicalQuality': ('logicalProps', '|GUMThing|'), 'hasModalQuality': ('modalProps', '|gum#ModalQuality|'), 'hasMaterialQuality': ('materialProps', '|GUMThing|'), 'hasUseQuality': ('useProps', '|SimpleQuality|')}
 objectRelations = {'isOwnedBy': ('owner',), 'hasElaboration': ('elaboration',)}
 objectDataRelations = {'hasLex': ('lexEntry',), 'hasIdentifiability': ('identifiability',), 'hasDeterminer': ('determiner',), 'hasNumber': ('number',), 'qualityType': ('ontoType',)}
-eventClasses = {'action': (dmActing,), 'ownership': (ownershipAscription,), 'motion': (naDirectMotionTo,)}
+eventClasses = {'action': (dmActing,), 'creation': (creating,), 'ownership': (ownershipAscription,), 'motion': (naDirectMotionTo,)}
 
 def semspecsFromNarrativeSpec(triples):
     def _addNotification(agendaItems, notifier, notifee):
@@ -245,6 +238,20 @@ def semspecsFromNarrativeSpec(triples):
                 agendaItems[o] = {'_notifs': set()}
             agendaItems[s]['_fn'] = objectDescription
             agendaItems[o]['_fn'] = objectDescription
+            if role not in agendaItems[s]:
+                agendaItems[s][role] = []
+            agendaItems[s][role].append(agendaItems[o])
+            _addNotification(agendaItems, o, s)
+        elif p in eventQualityRelations:
+            role, ontoType = eventQualityRelations[p]
+            if s not in agendaItems:
+                agendaItems[s] = {'_notify': set(), '_top': True}
+            if o not in agendaItems:
+                agendaItems[o] = {'_notify': set()}
+            if '_fn' not in agendaItems[s]:
+                agendaItems[s]['_fn'] = dmActing
+            agendaItems[o]['_fn'] = qualityDescription
+            agendaItems[o]['ontoType'] = ontoType
             if role not in agendaItems[s]:
                 agendaItems[s][role] = []
             agendaItems[s][role].append(agendaItems[o])
@@ -327,5 +334,4 @@ def _dbgGetKPMLOutput(semspec):
         connectToKPML(sock)
         retq = (getKPMLOutputFromSemspec(semspec, sock))
     return retq
-
 
