@@ -65,9 +65,61 @@ bobCanGoToLakeQuickly = bobCanGoToLake + [('hasManner', 'g', 'quickly'), ('hasLe
 
 aliceEatsLunchInOrderToGoToLake = aliceEatsLunch + [('construedAs', 'g', 'motion'), ('hasAgent', 'g', 'alice'), ('hasDestination', 'g', 'lake'), ('hasLex', 'g', 'go'), ('hasLex', 'lake', 'lake'), ('hasTense', 'g', 'purpose'), ('isMotivatedBy', 'e', 'g')]
 
+russiaInvadedUkraine = [('construedAs', 'invade', 'action'), ('hasAgent', 'invade', 'russia'), ('hasPatient', 'invade', 'ukraine'), ('hasTense', 'invade', 'past'), ('hasDeterminer','russia','zero'), ('hasDeterminer','ukraine','zero'), ('hasLex', 'invade', 'invade'), ('hasLex', 'russia', 'russia'), ('hasLex', 'ukraine', 'ukraine')]
+
+russiaLiberatingUkraineDespiteNazis = [('construedAs', 'liberate', 'action'), ('hasAgent', 'liberate', 'russia'), ('hasPatient', 'liberate', 'ukraine'), ('hasOpponent', 'liberate', 'nazis'), ('hasTense', 'liberate', 'present-continuous'), ('hasDeterminer', 'nazis', 'the'), ('hasDeterminer','russia','zero'), ('hasDeterminer','ukraine','zero'), ('hasLex', 'liberate', 'liberate'), ('hasLex', 'russia', 'russia'), ('hasLex', 'ukraine', 'ukraine'), ('hasLex','nazis','nazis')]
+
+russiaLiberatingUkraineFromNazis = [('construedAs', 'liberate', 'action'), ('hasAgent', 'liberate', 'russia'), ('hasPatient', 'liberate', 'ukraine'), ('hasSource', 'liberate', 'nazis'), ('hasTense', 'liberate', 'present-continuous'), ('hasDeterminer', 'nazis', 'the'), ('hasDeterminer','russia','zero'), ('hasDeterminer','ukraine','zero'), ('hasLex', 'liberate', 'liberate'), ('hasLex', 'russia', 'russia'), ('hasLex', 'ukraine', 'ukraine'), ('hasLex','nazis','nazis')]
+
+russiaLaunchedSMO = [('construedAs', 'launch', 'action'), ('hasAgent', 'launch', 'russia'), ('hasPatient', 'launch', 'operation'), ('hasDestination', 'launch', 'ukraine'), ('hasSize','operation','special'), ('hasMaterialQuality','operation','military'), ('hasTense', 'launch', 'past'), ('hasDeterminer','operation','a'), ('hasDeterminer','russia','zero'), ('hasDeterminer','ukraine','zero'), ('hasLex', 'launch', 'launch'), ('hasLex', 'russia', 'russia'), ('hasLex', 'ukraine', 'ukraine'), ('hasLex','special','special'), ('hasLex','military','military'), ('hasLex','operation','operation')]
+
+russiaInvadedToEscalate = russiaInvadedUkraine + [('construedAs', 'escalate', 'action'), ('hasAgent', 'escalate', 'russia'), ('hasPatient', 'escalate', 'crisis'), ('hasQuality', 'crisis', 'ongoing'), ('hasTense', 'escalate', 'present'), ('hasModality', 'escalate', 'can'), ('isMotivatedBy', 'invade', 'escalate'), ('hasDeterminer', 'crisis', 'the'), ('hasLex', 'escalate', 'escalate'), ('hasLex', 'crisis', 'crisis'), ('hasLex', 'ongoing', 'ongoing')]
+
+russiaLiberatingUkraineBecauseNATO = russiaLiberatingUkraineFromNazis + [('construedAs', 'escalate', 'action'), ('hasAgent', 'escalate', 'nato'), ('hasPatient', 'escalate', 'crisis'), ('hasQuality', 'crisis', 'ongoing'), ('hasTense', 'escalate', 'past'), ('isExplainedBy', 'liberate', 'escalate'), ('hasDeterminer', 'nato', 'zero'), ('hasLex', 'escalate', 'escalate'), ('hasLex', 'nato', 'nato'), ('hasDeterminer', 'crisis', 'the'), ('hasLex', 'crisis', 'crisis'), ('hasLex', 'ongoing', 'ongoing')]
+
+peopleLeaveFromUkraineToRussia = [('construedAs', 'leave', 'motion'), ('hasAgent', 'leave', 'people'), ('hasSource', 'leave', 'ukraine'), ('hasDestination', 'leave', 'russia'), ('hasTense', 'leave', 'present-continuous'), ('hasDeterminer', 'people', 'the'), ('hasDeterminer','russia','zero'), ('hasDeterminer','ukraine','zero'), ('hasLex', 'leave', 'leave'), ('hasLex', 'russia', 'russia'), ('hasLex', 'ukraine', 'ukraine'), ('hasLex', 'people', 'people')]
+
+russiaIsAbductingPeopleFromUkraine = [('construedAs', 'abduct', 'action'), ('hasAgent', 'abduct', 'russia'), ('hasSource', 'abduct', 'ukraine'), ('hasPatient', 'abduct', 'people'), ('hasTense', 'abduct', 'present-continuous'), ('hasDeterminer','russia','zero'), ('hasDeterminer','people','zero'), ('hasDeterminer','ukraine','zero'), ('hasLex', 'abduct', 'abduct'), ('hasLex', 'russia', 'russia'), ('hasLex', 'ukraine', 'ukraine'), ('hasLex', 'people', 'people')]
+
+NATOEscalatesBecauseRussiaLiberatingUkraine = russiaLiberatingUkraineFromNazis + [('construedAs', 'escalate', 'action'), ('hasAgent', 'escalate', 'nato'), ('hasPatient', 'escalate', 'crisis'), ('hasQuality', 'crisis', 'ongoing'), ('hasTense', 'escalate', 'past'), ('isExplainedBy', 'escalate', 'liberate'), ('hasDeterminer', 'nato', 'zero'), ('hasLex', 'escalate', 'escalate'), ('hasLex', 'nato', 'nato'), ('hasDeterminer', 'crisis', 'the'), ('hasLex', 'crisis', 'crisis'), ('hasLex', 'ongoing', 'ongoing')]
+
+
+examples = [
+    ('the small old red spoon', theSmallOldRedSpoon), 
+    ('Alice eats lunch.', aliceEatsLunch), 
+    ('Alice eats lunch with the small old red spoon.', aliceEatsLunchWithSpoon), 
+    ('Alice eats lunch with the small old red spoon despite the big bad wolf.', aliceEatsLunchWithSpoonDespiteWolf), 
+    ('Bob has the new spoon.', bobHasNewSpoon), 
+    ('Bob can go to the lake.', bobCanGoToLake), 
+    ('Alice eats lunch with the small old red spoon because Bob has the new spoon.', aliceEatsLunchWithSpoonBecauseBobHasNewSpoon), 
+    ('Alice eats lunch with the small old red spoon though Bob has the new spoon.', aliceEatsLunchWithSpoonThoughBobHasNewSpoon), 
+    ('Alice eats lunch so that Bob can go to the lake.', aliceEatsLunchSoThatBobCanGoToLake), 
+    ('Bob has the new spoon. Alice eats lunch so that Bob can go to the lake.', bobHasNewSpoonAliceEatsLunchSoThatBobCanGoToLake), 
+    ('Alice eats lunch with the small old red spoon so that Bob can have the new spoon.', aliceEatsLunchWithSpoonSoThatBobCanHaveNewSpoon), 
+    ('Alice and Bob eat lunch and dinner.', aliceAndBobEatLunchAndDinner), 
+    ('Alice eats lunch by chewing.', aliceEatsLunchByChewing), 
+    ('Bob has the new spoon by law.', bobHasNewSpoonByLaw), 
+    ('Alice and Bob can go to the lake by car.', aliceAndBobCanGoToLakeByCar), 
+    ('Alice takes Bob\'s spoon.', aliceTakesBobsSpoon), 
+    ('Alice\'s brother Bob.', alicesBrotherBob), 
+    ('Alice\'s brothers Bob and Charlie', alicesBrothersBobAndCharlie), 
+    ('Bob cooks lunch for Alice.', bobCooksLunchForAlice), 
+    ('Bob gives the spoon to Alice.', bobGivesSpoonToAlice), 
+    ('Bob can go to the lake quickly.', bobCanGoToLakeQuickly), 
+    ('Alice eats lunch in order to go to the lake.', aliceEatsLunchInOrderToGoToLake)
+    ('Russia invaded Ukraine.', russiaInvadedUkraine),
+    ('Russia is liberating Ukraine in spite of the nazis.', russiaLiberatingUkraineDespiteNazis),
+    ('Russia is liberating Ukraine from the nazis.', russiaLiberatingUkraineFromNazis),
+    ('Russia lanched a special military operation to Ukraine.', russiaLaunchedSMO),
+    ('Russia invaded Ukraine so that Russia can escalate the ongoing crisis.', russiaInvadedToEscalate),
+    ('Russia is liberating Ukraine from the Nazis because NATO escalated the ongoing crisis.', russiaLiberatingUkraineBecauseNATO),
+    ('NATO escalated the ongoing crisis because Russia is liberating Ukraine from the Nazis.', NATOEscalatesBecauseRussiaLiberatingUkraine),
+    ('The people are leaving from Ukraine to Russia.', peopleLeaveFromUkraineToRussia),
+    ('Russia is abducting people from Ukraine.', russiaIsAbductingPeopleFromUkraine),
+]
 
 def main():
-    for expected, narrspec in [('the small old red spoon', theSmallOldRedSpoon), ('Alice eats lunch.', aliceEatsLunch), ('Alice eats lunch with the small old red spoon.', aliceEatsLunchWithSpoon), ('Alice eats lunch with the small old red spoon despite the big bad wolf.', aliceEatsLunchWithSpoonDespiteWolf), ('Bob has the new spoon.', bobHasNewSpoon), ('Bob can go to the lake.', bobCanGoToLake), ('Alice eats lunch with the small old red spoon because Bob has the new spoon.', aliceEatsLunchWithSpoonBecauseBobHasNewSpoon), ('Alice eats lunch with the small old red spoon though Bob has the new spoon.', aliceEatsLunchWithSpoonThoughBobHasNewSpoon), ('Alice eats lunch so that Bob can go to the lake.', aliceEatsLunchSoThatBobCanGoToLake), ('Bob has the new spoon. Alice eats lunch so that Bob can go to the lake.', bobHasNewSpoonAliceEatsLunchSoThatBobCanGoToLake), ('Alice eats lunch with the small old red spoon so that Bob can have the new spoon.', aliceEatsLunchWithSpoonSoThatBobCanHaveNewSpoon), ('Alice and Bob eat lunch and dinner.', aliceAndBobEatLunchAndDinner), ('Alice eats lunch by chewing.', aliceEatsLunchByChewing), ('Bob has the new spoon by law.', bobHasNewSpoonByLaw), ('Alice and Bob can go to the lake by car.', aliceAndBobCanGoToLakeByCar), ('Alice takes Bob\'s spoon.', aliceTakesBobsSpoon), ('Alice\'s brother Bob.', alicesBrotherBob), ('Alice\'s brothers Bob and Charlie', alicesBrothersBobAndCharlie), ('Bob cooks lunch for Alice.', bobCooksLunchForAlice), ('Bob gives the spoon to Alice.', bobGivesSpoonToAlice), ('Bob can go to the lake quickly.', bobCanGoToLakeQuickly), ('Alice eats lunch in order to go to the lake.', aliceEatsLunchInOrderToGoToLake)]:
+    for expected, narrspec in examples:
         print('--------')
         print("EXPECTED: %s" % expected)
         outputs = getKPMLOutputFromNarrative(narrspec)

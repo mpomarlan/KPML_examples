@@ -34,7 +34,7 @@ modalities = {None : None,
     "could": ":ability-q ability :modality-conditionality-q modalityconditional :volitionality-q nonvolitional :modal-necessity-q nonnecessity",
 } # TODO: are there other modality flags? Should we use the modality flags in the narrative spec rather than the english modal verb?
 
-determiners = {'a', 'all', 'any', 'both', 'each', 'every', 'some', 'the', 'zero'} # TODO: are there other determiners?
+determiners = {'a', 'all', 'any', 'both', 'each', 'every', 'some', 'that', 'the', 'this', 'zero'} # TODO: are there other determiners?
 identifiabilities = {'identifiable', 'nonidentifiable'}
 qualityOntoTypes = {'|GUMThing|', '|Age|', '|SimpleQuality|', '|Size|', '|Color|', '|SimpleQuality|', '|gum#ModalQuality|'} # TODO: double check with GUM that the various property ascriptions are all covered.
 
@@ -87,27 +87,28 @@ def _sanityCheckTensePolarityModality(tense, polarity, modality):
 # However, only some key parameters are actually used in the semspec generation process. If more are provided, the function quietly ignores them.
 # Without the **ignore parameter, any unexpected key triggers an exception. Maybe this is ok, as it is sometimes a signal to debug something in the pipeline, but
 # the decision was that the narrative spec may be a little ill-formed and still have the semspec generation forgive minor mistakes.
-def becauseReason(event=None, reason=None, polarity='positive', tense='present', **ignore):
-    tense, polarity, _ = _sanityCheckTensePolarityModality(tense,polarity,None)
-    idstr = hashlib.md5(str((polarity, tense, event, reason)).encode('utf-8')).hexdigest()
-    return "(RST_{idstr} / |uio#RSTMotivation| :exist-speech-act-q speechact :conditioning-q conditioning :cause-condition-q causecondition :causal-relation-q causalrelation :polarity-value-q {polarity} :tense {tense} :|domain| {event} :|range| {reason})".format(idstr=idstr, polarity=polarity, tense=tense, event=event, reason=reason)
+def becauseReason(event=None, reason=None, polarity='positive', **ignore):
+    _, polarity, _ = _sanityCheckTensePolarityModality(None,polarity,None)
+    idstr = hashlib.md5(str((polarity, event, reason)).encode('utf-8')).hexdigest()
+    return "(RST_{idstr} / |uio#RSTMotivation| :exist-speech-act-q speechact :conditioning-q conditioning :cause-condition-q causecondition :causal-relation-q causalrelation :polarity-value-q {polarity} :|domain| {event} :|range| {reason})".format(idstr=idstr, polarity=polarity, event=event, reason=reason)
 
-def soThatPurpose(event=None, purpose=None, polarity='positive', tense='present', **ignore):
-    tense, polarity, _ = _sanityCheckTensePolarityModality(tense,polarity,None)
-    idstr = hashlib.md5(str((polarity, tense, event, purpose)).encode('utf-8')).hexdigest()
-    return "(RST_{idstr} / |uio#RSTPurpose| :exist-speech-act-q speechact :statement-q statement :conditioning-q conditioning :purpose-relation-q purpose :purpose-condition-q purposecondition :cause-condition-q causecondition :causal-relation-q causalrelation :polarity-value-q {polarity} :tense {tense} :|domain| {event} :|range| {purpose})".format(idstr=idstr, polarity=polarity, tense=tense, event=event, purpose=purpose)
+def soThatPurpose(event=None, purpose=None, polarity='positive', **ignore):
+    _, polarity, _ = _sanityCheckTensePolarityModality(None,polarity,None)
+    idstr = hashlib.md5(str((polarity, event, purpose)).encode('utf-8')).hexdigest()
+    return "(RST_{idstr} / |uio#RSTPurpose| :exist-speech-act-q speechact :statement-q statement :conditioning-q conditioning :purpose-relation-q purpose :purpose-condition-q purposecondition :cause-condition-q causecondition :causal-relation-q causalrelation :polarity-value-q {polarity} :|domain| {event} :|range| {purpose})".format(idstr=idstr, polarity=polarity, event=event, purpose=purpose)
 
-def despiteOpposition(event=None, opposition=None, polarity='positive', tense='present', **ignore):
-    tense, polarity, _ = _sanityCheckTensePolarityModality(tense,polarity,None)
-    idstr = hashlib.md5(str((polarity, tense, event, opposition)).encode('utf-8')).hexdigest()
-    return "(RST_{idstr} / |uio#RSTConcessive| :exist-speech-act-q speechact :statement-q statement :conditioning-q conditioning :concessive-relation-q concession :concessive-condition-q concessive :polarity-value-q {polarity} :tense {tense} :FORMALITY-Q FORMAL :LEGALISTIC-Q NONLEGALISTIC :|domain| {event} :|range| {opposition})".format(idstr=idstr, polarity=polarity, tense=tense, event=event, opposition=opposition)
+def despiteOpposition(event=None, opposition=None, polarity='positive', **ignore):
+    _, polarity, _ = _sanityCheckTensePolarityModality(None,polarity,None)
+    idstr = hashlib.md5(str((polarity, event, opposition)).encode('utf-8')).hexdigest()
+    return "(RST_{idstr} / |uio#RSTConcessive| :exist-speech-act-q speechact :statement-q statement :conditioning-q conditioning :concessive-relation-q concession :concessive-condition-q concessive :polarity-value-q {polarity} :FORMALITY-Q FORMAL :LEGALISTIC-Q NONLEGALISTIC :|domain| {event} :|range| {opposition})".format(idstr=idstr, polarity=polarity, event=event, opposition=opposition)
 
 def eventDescription(evType, lexEntry, argMap, tense=None, polarity=None, modality=None, **args):
     tense, polarity, modality = _sanityCheckTensePolarityModality(tense,polarity,modality)
     for r in args.keys():
         args[r] = _normalizeList(args[r])
     idstr = hashlib.md5(str(tuple([evType, lexEntry, tense, polarity, modality] + [args[r] for r in sorted(args.keys())])).encode('utf-8')).hexdigest()
-    defaultMap = {"actee": ":|actee| %s", "actor": ":|actor| %s", "beneficiary": ":|beneficiary| %s", "destination": ":|space#direction| (DIRTO_{idstr} / |space#GeneralizedRoute| :spatio-temporal-type-q spatial :source-destination-process-q sourcedestination :|space#relatum| %s)".format(idstr=idstr), "enablement": ":|enablement| %s", "instrument": ":|instrumental| %s", "item": ":|range| %s", "manner": ":|manner| %s", "opposition": ":|concessive| %s", "owner": ":|domain| %s"}
+    defaultMap = {"actee": ":|actee| %s", "actor": ":|actor| %s", "beneficiary": ":|beneficiary| %s", "destination": ":|space#direction| (DIRTO_{idstr} / |space#GeneralizedRoute| :spatio-temporal-type-q spatial :source-destination-process-q sourcedestination :|space#relatum| %s)".format(idstr=idstr), "enablement": ":|enablement| %s", "instrument": ":|instrumental| %s", "item": ":|range| %s", "manner": ":|manner| %s", "opposition": ":|concessive| %s", "owner": ":|domain| %s", "source": ":|space#placement| (SRC_{idstr} / |space#GeneralizedLocation| :spatio-temporal-type-q spatial :source-destination-process-q sourcedestination :source-process-q source :|space#hasSpatialModality| (SPMODSRC_{idstr} / |space#NonProjectionAxial|) :|space#relatum| %s)".format(idstr=idstr)}
+    defaultMap = {"actee": ":|actee| %s", "actor": ":|actor| %s", "beneficiary": ":|beneficiary| %s", "destination": ":|space#direction| (DIRTO_{idstr} / |space#GeneralizedRoute| :spatio-temporal-type-q spatial :source-destination-process-q sourcedestination :|space#relatum| %s)".format(idstr=idstr), "enablement": ":|enablement| %s", "instrument": ":|instrumental| %s", "item": ":|range| %s", "manner": ":|manner| %s", "opposition": ":|concessive| %s", "owner": ":|domain| %s", "source": ":|space#source| (SRC_{idstr} / |space#GeneralizedLocation| :spatio-temporal-type-q spatial :DIRECTIONAL-RELATION-PHRASE-Q YES :distancing-directional-q distancing  :|space#relatum| %s)".format(idstr=idstr)}
     roles = ""
     tenseDesc = ""
     if tense not in [None, 'purpose']:
@@ -140,7 +141,7 @@ def naDirectMotionTo(lexEntry=None, modality=None, polarity='positive', tense='p
     return eventDescription("|space#NonAffectingDirectedMotion|", lexEntry, {'actor': ':|gum#actor| %s'}, tense=tense, polarity=polarity, modality=modality, **args)
 
 
-def objectDescription(lexEntry=None, determiner=None, number=None, identifiability=None, materialProps=None, ageProps=None, provenanceProps=None, sizeProps=None, colorProps=None, logicalProps=None, useProps=None, miscProps=None, modalProps=None, owner=None, elaboration=None, **dontUse):
+def objectDescription(lexEntry=None, determiner=None, number=None, identifiability=None, materialProps=None, ageProps=None, provenanceProps=None, sizeProps=None, colorProps=None, logicalProps=None, useProps=None, miscProps=None, modalProps=None, owner=None, elaboration=None, source=None, **dontUse):
     if (not isinstance(number, str)) or (number.lower() not in numbers):
         number = 'singular'
     if (not isinstance(determiner, str)) or (determiner.lower() not in determiners):
@@ -159,14 +160,18 @@ def objectDescription(lexEntry=None, determiner=None, number=None, identifiabili
     miscProps = _normalizeList(miscProps)
     modalProps = _normalizeList(modalProps)
     owner = _normalizeList(owner)
+    source = _normalizeList(source)
     qualities = ''
     rels = ''
     if None != elaboration:
         idstr = hashlib.md5(str((lexEntry, determiner, number, identifiability, owner, elaboration)).encode('utf-8')).hexdigest()
         retq = "(OBJ_%s / |uio#Restatement| :|domain| %s :|range| %s)" % (idstr, objectDescription(lexEntry=lexEntry, determiner=determiner, number=number, identifiability=identifiability, materialProps=materialProps, ageProps=ageProps, provenanceProps=provenanceProps, sizeProps=sizeProps, colorProps=colorProps, logicalProps=logicalProps, useProps=useProps, miscProps=miscProps, modalProps=modalProps, owner=owner), elaboration)
         return retq
+    if None != source:
+        idstr = hashlib.md5(str((source,)).encode('utf-8')).hexdigest()
+        rels = rels + ":|space#source| (SRC_{idstr} / |space#GeneralizedLocation| :spatio-temporal-type-q spatial :DIRECTIONAL-RELATION-PHRASE-Q YES :distancing-directional-q distancing  :|space#relatum| {source})".format(idstr=idstr, source=source)
     if None != owner:
-        rels = ':|OwnedBy| %s' % owner
+        rels = rels + ':|OwnedBy| %s' % owner
     for props, slot in [(materialProps, ':|MaterialPropertyAscription|'), (ageProps, ':|AgePropertyAscription|'), (provenanceProps, ':|ProvenancePropertyAscription|'), (sizeProps, ':|SizePropertyAscription|'), (colorProps, ':|ColorPropertyAscription|'), (logicalProps, ':|LogicalPropertyAscription|'), (useProps, ':|UsePropertyAscription|'), (miscProps, ':|PropertyAscription|'), (modalProps, ':|ModalPropertyAscription|')]:
         if None != props:
             qualities = qualities + slot + " " + props + " "
@@ -182,11 +187,11 @@ def qualityDescription(lexEntry=None, ontoType=None, **dontUse):
     return '(ADJ_{idstr} / {ontoType} :LEX {lexEntry})'.format(idstr=idstr, ontoType=ontoType, lexEntry=lexEntry)
 
 eventRelations = {'isOpposedBy': (despiteOpposition, 'event', 'opposition'), 'isExplainedBy': (becauseReason, 'event', 'reason'), 'isMotivatedBy': (soThatPurpose, 'event', 'purpose')}
-participantRelations = {'hasBeneficiary': ('beneficiary',), 'hasAgent': ('actor',), 'hasPatient': ('actee',), 'hasInstrument': ('instrument',), 'hasOpponent': ('opposition',), 'hasDestination': ('destination',), 'hasOwner': ('owner',), 'hasItem': ('item',), 'hasEnablement': ('enablement',)}
+participantRelations = {'hasBeneficiary': ('beneficiary',), 'hasAgent': ('actor',), 'hasPatient': ('actee',), 'hasInstrument': ('instrument',), 'hasOpponent': ('opposition',), 'hasDestination': ('destination',), 'hasOwner': ('owner',), 'hasItem': ('item',), 'hasEnablement': ('enablement',), 'hasSource': ('source',)}
 eventDataRelations = {'hasLex': ('lexEntry',), 'hasPolarity': ('polarity',), 'hasTense': ('tense',), 'hasModality': ('modality',)}
 eventQualityRelations = {'hasManner': ('manner', '|SimpleQuality|')}
 qualityRelations = {'hasQuality': ('miscProps', '|SimpleQuality|'), 'hasColor': ('colorProps', '|Color|'), 'hasAge': ('ageProps', '|Age|'), 'hasSize': ('sizeProps', '|Size|'), 'hasProvenance': ('provenanceProps', '|SimpleQuality|'), 'hasLogicalQuality': ('logicalProps', '|GUMThing|'), 'hasModalQuality': ('modalProps', '|gum#ModalQuality|'), 'hasMaterialQuality': ('materialProps', '|GUMThing|'), 'hasUseQuality': ('useProps', '|SimpleQuality|')}
-objectRelations = {'isOwnedBy': ('owner',), 'hasElaboration': ('elaboration',)}
+objectRelations = {'isOwnedBy': ('owner',), 'hasElaboration': ('elaboration',), 'hasSource': ('source',)}
 objectDataRelations = {'hasLex': ('lexEntry',), 'hasIdentifiability': ('identifiability',), 'hasDeterminer': ('determiner',), 'hasNumber': ('number',), 'qualityType': ('ontoType',)}
 eventClasses = {'action': (dmActing,), 'creation': (creating,), 'ownership': (ownershipAscription,), 'motion': (naDirectMotionTo,)}
 
