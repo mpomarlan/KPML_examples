@@ -106,7 +106,7 @@ examples = [
     ('Bob cooks lunch for Alice.', bobCooksLunchForAlice), 
     ('Bob gives the spoon to Alice.', bobGivesSpoonToAlice), 
     ('Bob can go to the lake quickly.', bobCanGoToLakeQuickly), 
-    ('Alice eats lunch in order to go to the lake.', aliceEatsLunchInOrderToGoToLake)
+    ('Alice eats lunch in order to go to the lake.', aliceEatsLunchInOrderToGoToLake),
     ('Russia invaded Ukraine.', russiaInvadedUkraine),
     ('Russia is liberating Ukraine in spite of the nazis.', russiaLiberatingUkraineDespiteNazis),
     ('Russia is liberating Ukraine from the nazis.', russiaLiberatingUkraineFromNazis),
